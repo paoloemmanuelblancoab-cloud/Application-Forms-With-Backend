@@ -46,6 +46,17 @@
       radial-gradient(900px 700px at 92% 100%, rgba(255,255,255,0.08), transparent 60%),
       linear-gradient(160deg, var(--navy) 0%, var(--blue) 55%, var(--mid-blue) 100%);
     background-attachment: fixed;
+    background-size: 180% 180%;
+    background-position: 0% 0%;
+    animation: dashboardGradientDrift 24s ease-in-out infinite;
+  }
+  @keyframes dashboardGradientDrift {
+    0%   { background-position: 0% 0%; }
+    50%  { background-position: 100% 55%; }
+    100% { background-position: 0% 0%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body.world-dashboard { animation: none; }
   }
 
   /* ============ WORLD: ABOUT US (cartoony grid) ============ */
@@ -203,8 +214,9 @@
   @media (max-width: 480px) { #dashboardWorld .field-grid { grid-template-columns: 1fr; } }
 
   #dashboardWorld .choice-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
-  #dashboardWorld .choice {
-    font-size: 13px; font-weight: 600; padding: 9px 15px;
+  #dashboardWorld .choice-row .choice {
+    display: inline-flex; align-items: center;
+    font-size: 13px; font-weight: 600; padding: 9px 15px; margin: 0;
     border: 1px solid rgba(255,255,255,0.28); border-radius: 999px; cursor: pointer;
     color: var(--ink); background: rgba(255,255,255,0.08); user-select: none;
     transition: background 0.15s ease, color 0.15s ease;
@@ -258,7 +270,7 @@
   #aboutWorld .hero-tagline {
     position: relative; z-index: 1;
     font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: clamp(20px, 4vw, 26px);
-    color: var(--coral); margin: 10px 0 0;
+    color: #000000; margin: 10px 0 0;
   }
   #aboutWorld .hero-blurb {
     position: relative; z-index: 1;
@@ -321,7 +333,7 @@
   }
 
   #aboutWorld .closing {
-    margin-top: 60px; text-align: center; padding: 34px 24px; border: 2.5px solid var(--navy);
+    position: relative; margin-top: 60px; text-align: center; padding: 34px 24px; border: 2.5px solid var(--navy);
     border-radius: 22px; background: var(--lavender); box-shadow: 6px 6px 0 var(--navy);
   }
   #aboutWorld .closing h3 {
@@ -329,6 +341,232 @@
   }
   #aboutWorld .closing p {
     font-family: 'Nunito', sans-serif; font-size: 14.5px; color: var(--navy); margin: 0 0 18px; line-height: 1.6;
+  }
+
+  /* ==================================================================== */
+  /* SCROLL-TRIGGERED REVEALS + PLAYFUL MOTION                            */
+  /* ==================================================================== */
+  #aboutWorld section { position: relative; overflow: visible; }
+
+  .reveal,
+  #aboutWorld .desk-card,
+  #aboutWorld .pillar {
+    opacity: 0;
+    transform: translateY(26px) scale(.97);
+    transition: opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1);
+  }
+  .reveal.in-view,
+  #aboutWorld .desk-card.in-view,
+  #aboutWorld .pillar.in-view {
+    opacity: 1; transform: none;
+  }
+  #aboutWorld .desk-grid .desk-card:nth-child(1) { transition-delay: .02s; }
+  #aboutWorld .desk-grid .desk-card:nth-child(2) { transition-delay: .08s; }
+  #aboutWorld .desk-grid .desk-card:nth-child(3) { transition-delay: .14s; }
+  #aboutWorld .desk-grid .desk-card:nth-child(4) { transition-delay: .20s; }
+  #aboutWorld .desk-grid .desk-card:nth-child(5) { transition-delay: .26s; }
+  #aboutWorld .desk-grid .desk-card:nth-child(6) { transition-delay: .02s; }
+  #aboutWorld .desk-grid .desk-card:nth-child(7) { transition-delay: .08s; }
+  #aboutWorld .desk-grid .desk-card:nth-child(8) { transition-delay: .14s; }
+  #aboutWorld .desk-grid .desk-card:nth-child(9) { transition-delay: .20s; }
+  #aboutWorld .desk-grid .desk-card:nth-child(10) { transition-delay: .26s; }
+  #aboutWorld .pillar-row .pillar:nth-child(1) { transition-delay: .02s; }
+  #aboutWorld .pillar-row .pillar:nth-child(2) { transition-delay: .10s; }
+  #aboutWorld .pillar-row .pillar:nth-child(3) { transition-delay: .18s; }
+
+  #aboutWorld .desk-icon { transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+  #aboutWorld .desk-card:hover .desk-icon { transform: rotate(-9deg) scale(1.12); }
+  #aboutWorld .pillar { transition: transform .2s cubic-bezier(.34,1.56,.64,1); }
+  #aboutWorld .pillar:hover { transform: scale(1.08) rotate(0deg) !important; }
+
+  /* floating doodles */
+  .doodle {
+    position: absolute; z-index: 0; pointer-events: none; user-select: none;
+    will-change: transform;
+  }
+  .doodle-bob {
+    display: inline-block;
+    animation: doodleBob 5.5s ease-in-out infinite;
+    filter: drop-shadow(2px 3px 0 rgba(0,14,75,0.08));
+    pointer-events: auto; cursor: pointer;
+  }
+  .doodle-bob.d2 { animation-duration: 6.5s; animation-delay: .4s; }
+  .doodle-bob.d3 { animation-duration: 4.5s; animation-delay: .8s; }
+  .doodle-bob.clicked { animation: doodleClickPop .5s ease; }
+  @keyframes doodleBob {
+    0%, 100% { transform: translateY(0) rotate(-6deg); }
+    50% { transform: translateY(-14px) rotate(6deg); }
+  }
+  @keyframes doodleClickPop {
+    0%   { transform: scale(1) rotate(0deg); }
+    30%  { transform: scale(1.45) rotate(-14deg); }
+    60%  { transform: scale(0.9) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+  @media (max-width: 640px) { .doodle { display: none; } }
+
+  /* doodle click: confetti + motivational popup */
+  .doodle-confetti-piece {
+    position: fixed; top: 0; left: 0; width: 8px; height: 8px; border-radius: 2px;
+    pointer-events: none; z-index: 600;
+    animation: doodleConfettiFly .8s ease-out forwards;
+  }
+  @keyframes doodleConfettiFly {
+    0%   { transform: translate(-50%,-50%) scale(0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--cx)), calc(-50% + var(--cy))) scale(1) rotate(var(--cr)); opacity: 0; }
+  }
+  .doodle-popup {
+    position: fixed; top: 0; left: 0; z-index: 601; pointer-events: none; white-space: nowrap;
+    font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 13px; color: var(--navy);
+    background: #fff; border: 2px solid var(--navy); border-radius: 999px; padding: 8px 16px;
+    box-shadow: 3px 3px 0 var(--navy);
+    animation: doodlePopupIn .3s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .doodle-popup.fade-out { animation: doodlePopupOut .5s ease forwards; }
+  @keyframes doodlePopupIn {
+    from { opacity: 0; transform: translate(-50%,-80%) scale(.6); }
+    to   { opacity: 1; transform: translate(-50%,-100%) scale(1); }
+  }
+  @keyframes doodlePopupOut {
+    to { opacity: 0; transform: translate(-50%,-130%) scale(.9); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .doodle-bob.clicked { animation: none; }
+    .doodle-confetti-piece { display: none; }
+    .doodle-popup, .doodle-popup.fade-out { animation: none; }
+  }
+
+  /* quiz section */
+  #aboutWorld .quiz-section { margin-top: 60px; }
+  .quiz-intro {
+    max-width: 640px; margin: 30px auto 0; text-align: center; position: relative; z-index: 1;
+  }
+  .quiz-card {
+    position: relative; z-index: 1; max-width: 620px; margin: 30px auto 0;
+    background: #fff; border: 2.5px solid var(--navy); border-radius: 24px;
+    padding: 30px 26px; box-shadow: 7px 7px 0 var(--navy);
+    overflow: hidden;
+  }
+  .quiz-start-btn {
+    font-family: 'Baloo 2', sans-serif; font-size: 15.5px; font-weight: 700;
+    background: var(--coral); color: #fff; border: 2.5px solid var(--navy);
+    padding: 14px 30px; border-radius: 999px; cursor: pointer; margin-top: 22px;
+    box-shadow: 5px 5px 0 var(--navy); transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .quiz-start-btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--navy); }
+  .quiz-start-btn:active { transform: translate(0,0); box-shadow: 3px 3px 0 var(--navy); }
+
+  .quiz-progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+  .quiz-progress-track {
+    flex: 1; height: 12px; border-radius: 999px; background: rgba(0,14,75,0.09);
+    border: 1.5px solid rgba(0,14,75,0.18); overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--sky), var(--mint));
+    transition: width .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .quiz-progress-label {
+    font-family: 'Baloo 2', sans-serif; font-size: 12.5px; font-weight: 700; color: var(--blue);
+    white-space: nowrap;
+  }
+
+  .quiz-body { position: relative; min-height: 1px; }
+  .quiz-question-panel { display: block; }
+  .quiz-question-panel.slide-exit-left { animation: qExitLeft .28s ease forwards; }
+  .quiz-question-panel.slide-exit-right { animation: qExitRight .28s ease forwards; }
+  .quiz-question-panel.slide-enter { animation: qEnter .38s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes qExitLeft { to { opacity: 0; transform: translateX(-38px); } }
+  @keyframes qExitRight { to { opacity: 0; transform: translateX(38px); } }
+  @keyframes qEnter { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
+
+  .quiz-q-icon {
+    width: 54px; height: 54px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+    font-size: 26px; background: var(--yellow); border: 2.5px solid var(--navy); margin: 0 auto 14px;
+    animation: iconPop .4s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  @keyframes iconPop { from { transform: scale(0) rotate(-20deg); } to { transform: scale(1) rotate(0deg); } }
+  .quiz-q-text {
+    font-family: 'Baloo 2', sans-serif; font-size: clamp(18px, 3.6vw, 21px); font-weight: 700;
+    color: var(--navy); text-align: center; margin: 0 0 20px; line-height: 1.4;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+  .quiz-option {
+    display: flex; align-items: center; gap: 12px; text-align: left;
+    font-family: 'Nunito', sans-serif; font-size: 14.5px; font-weight: 700; color: var(--navy);
+    background: #fff; border: 2.5px solid var(--navy); border-radius: 16px; padding: 13px 16px;
+    cursor: pointer; transition: transform .12s ease, box-shadow .12s ease, background .15s ease;
+    box-shadow: 3px 3px 0 rgba(0,14,75,0.16);
+  }
+  .quiz-option:hover { transform: translate(-1px,-1px); box-shadow: 5px 5px 0 rgba(0,14,75,0.22); background: #FFFBEF; }
+  .quiz-option:active { transform: translate(0,0); }
+  .quiz-option .opt-dot {
+    flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--navy);
+    display: flex; align-items: center; justify-content: center; font-size: 12px; color: transparent;
+    transition: background .15s ease, color .15s ease;
+  }
+  .quiz-option.selected { background: var(--mint); }
+  .quiz-option.selected .opt-dot { background: var(--navy); color: #fff; }
+
+  .quiz-nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+  .quiz-back-btn {
+    font-family: 'Baloo 2', sans-serif; font-size: 13px; font-weight: 700; color: var(--blue);
+    background: none; border: none; cursor: pointer; padding: 6px 4px; opacity: 0;
+    pointer-events: none; transition: opacity .2s ease;
+  }
+  .quiz-back-btn.show { opacity: 1; pointer-events: auto; }
+  .quiz-back-btn:hover { text-decoration: underline; }
+
+  .quiz-result { text-align: center; animation: qEnter .45s cubic-bezier(.2,.8,.2,1) both; }
+  .quiz-result-icon-wrap { position: relative; width: 90px; height: 90px; margin: 0 auto 6px; }
+  .quiz-result-icon {
+    width: 90px; height: 90px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 40px; background: var(--yellow); border: 3px solid var(--navy);
+    animation: resultPop .55s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  @keyframes resultPop { 0% { transform: scale(0); } 70% { transform: scale(1.12); } 100% { transform: scale(1); } }
+  .confetti {
+    position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 2px;
+    animation: confettiPop .9s ease-out both;
+  }
+  @keyframes confettiPop {
+    0% { transform: translate(-50%,-50%) scale(0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--cx), var(--cy)) scale(1) rotate(var(--cr)); opacity: 0; }
+  }
+  .quiz-result-title {
+    font-family: 'Baloo 2', sans-serif; font-size: clamp(21px, 4.4vw, 27px); font-weight: 700;
+    color: var(--navy); margin: 14px 0 8px;
+  }
+  .quiz-result-copy {
+    font-family: 'Nunito', sans-serif; font-size: 14.5px; line-height: 1.65; color: #2a2f4a;
+    max-width: 480px; margin: 0 auto 22px;
+  }
+  .quiz-bars { max-width: 420px; margin: 0 auto 22px; text-align: left; }
+  .quiz-bar-row { margin-bottom: 12px; }
+  .quiz-bar-label {
+    display: flex; justify-content: space-between; font-family: 'Baloo 2', sans-serif;
+    font-size: 12.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px;
+  }
+  .quiz-bar-track { height: 10px; border-radius: 999px; background: rgba(0,14,75,0.08); overflow: hidden; }
+  .quiz-bar-fill { height: 100%; width: 0%; border-radius: 999px; transition: width .8s cubic-bezier(.2,.8,.2,1); }
+  .quiz-disclaimer {
+    font-family: 'Nunito', sans-serif; font-size: 12.5px; font-style: italic; color: var(--ink-faint);
+    color: #5a6088; max-width: 460px; margin: 0 auto 22px; line-height: 1.6;
+  }
+  .quiz-result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .quiz-retake-btn, .quiz-apply-btn {
+    font-family: 'Baloo 2', sans-serif; font-size: 14px; font-weight: 700;
+    border-radius: 999px; padding: 12px 22px; cursor: pointer; border: 2.5px solid var(--navy);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .quiz-retake-btn { background: #fff; color: var(--navy); box-shadow: 4px 4px 0 var(--navy); }
+  .quiz-apply-btn { background: var(--navy); color: #fff; box-shadow: 4px 4px 0 var(--yellow); }
+  .quiz-retake-btn:hover, .quiz-apply-btn:hover { transform: translate(-2px,-2px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .doodle-bob { animation: none; }
+    .quiz-q-icon, .quiz-result-icon, .confetti { animation: none; }
+    .quiz-question-panel.slide-exit-left, .quiz-question-panel.slide-exit-right, .quiz-question-panel.slide-enter { animation: none; }
   }
 </style>
 </head>
@@ -347,6 +585,9 @@
 
     <div class="hero">
       <div class="hero-blob"></div>
+      <div class="doodle" style="top:6%; left:4%;" data-speed="-0.10" data-rot="-8"><span class="doodle-bob" style="font-size:30px;">✏️</span></div>
+      <div class="doodle" style="top:2%; right:6%;" data-speed="0.14" data-rot="10"><span class="doodle-bob d2" style="font-size:28px;">⭐</span></div>
+      <div class="doodle" style="bottom:0%; left:12%;" data-speed="0.08" data-rot="-4"><span class="doodle-bob d3" style="font-size:26px;">💬</span></div>
       <p class="hero-eyebrow">Get to know us</p>
       <h1 class="hero-wordmark">JourKnows PH</h1>
       <p class="hero-tagline">Journalism for All</p>
@@ -358,7 +599,8 @@
       <button class="hero-cta" data-target="dashboard">Apply to a Desk →</button>
     </div>
 
-    <section>
+    <section class="reveal">
+      <div class="doodle" style="top:-6%; right:2%;" data-speed="0.10" data-rot="8"><span class="doodle-bob" style="font-size:30px;">📣</span></div>
       <p class="section-label">What we stand for</p>
       <h2 class="section-title">Our advocacy</h2>
       <p class="section-copy">
@@ -374,7 +616,8 @@
       </div>
     </section>
 
-    <section>
+    <section class="reveal">
+      <div class="doodle" style="top:4%; left:0%;" data-speed="-0.12" data-rot="-10"><span class="doodle-bob d2" style="font-size:28px;">💡</span></div>
       <p class="section-label">Who we are</p>
       <h2 class="section-title">Rooted in the campus press</h2>
       <p class="section-copy">
@@ -385,7 +628,8 @@
       </p>
     </section>
 
-    <section>
+    <section class="reveal">
+      <div class="doodle" style="top:-4%; right:4%;" data-speed="0.09" data-rot="6"><span class="doodle-bob d3" style="font-size:28px;">🔍</span></div>
       <p class="section-label">Find your fit</p>
       <h2 class="section-title">Meet the desks</h2>
       <p class="section-copy">
@@ -447,7 +691,35 @@
       </div>
     </section>
 
-    <div class="closing">
+    <section class="quiz-section reveal">
+      <div class="doodle" style="top:-2%; left:2%;" data-speed="-0.10" data-rot="-6"><span class="doodle-bob" style="font-size:28px;">🧭</span></div>
+      <div class="doodle" style="top:6%; right:1%;" data-speed="0.12" data-rot="8"><span class="doodle-bob d2" style="font-size:26px;">🎯</span></div>
+      <p class="section-label">Still deciding?</p>
+      <h2 class="section-title">Discovering Where You Belong Too?</h2>
+      <div class="quiz-intro" id="quizIntro">
+        <p class="section-copy">
+          Not sure which desk fits you best? Answer a few quick, playful questions and we'll point you toward
+          the desks that match your interests and strengths. It only takes about a minute — and it's just a
+          guide, not a verdict.
+        </p>
+        <button class="quiz-start-btn" id="quizStartBtn">Start the Quiz →</button>
+      </div>
+
+      <div class="quiz-card" id="quizCard" style="display:none;">
+        <div class="quiz-progress-row">
+          <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+          <span class="quiz-progress-label" id="quizProgressLabel">Question 1 of 10</span>
+        </div>
+        <div class="quiz-body" id="quizBody"></div>
+        <div class="quiz-nav-row">
+          <button class="quiz-back-btn" id="quizBackBtn">← Back</button>
+          <span></span>
+        </div>
+      </div>
+    </section>
+
+    <div class="closing reveal">
+      <div class="doodle" style="top:-6%; left:6%;" data-speed="0.08" data-rot="-6"><span class="doodle-bob" style="font-size:28px;">📰</span></div>
       <h3>Ready to join the desk?</h3>
       <p>Applications are reviewed on a rolling basis — tell us where you'd like to contribute.</p>
       <button class="hero-cta" data-target="dashboard" style="box-shadow:5px 5px 0 var(--navy); background:#fff; color:var(--navy);">Start your application →</button>
@@ -662,5 +934,400 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
 });
 </script>
 
+<script>
+/* ==================================================================== */
+/* SCROLL REVEALS + FLOATING DOODLE PARALLAX                            */
+/* ==================================================================== */
+(function () {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const revealTargets = document.querySelectorAll('#aboutWorld .reveal, #aboutWorld .desk-card, #aboutWorld .pillar');
+  if (reduced) {
+    revealTargets.forEach(el => el.classList.add('in-view'));
+  } else if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealTargets.forEach(el => io.observe(el));
+  } else {
+    revealTargets.forEach(el => el.classList.add('in-view'));
+  }
+
+  if (!reduced) {
+    const doodles = document.querySelectorAll('#aboutWorld .doodle');
+    let ticking = false;
+    function updateParallax() {
+      const vh = window.innerHeight;
+      doodles.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const centerOffset = (rect.top + rect.height / 2) - vh / 2;
+        const speed = parseFloat(el.dataset.speed || '0.08');
+        el.style.transform = `translateY(${(centerOffset * speed).toFixed(1)}px)`;
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!document.body.classList.contains('world-about')) return;
+      if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+    }, { passive: true });
+    updateParallax();
+  }
+
+  /* click a floating doodle: confetti burst + a motivational pop-up */
+  const MOTIVATIONAL_MESSAGES = [
+    'Believe in yourself! ✨',
+    "You've got this! 💪",
+    'Go tell your story! 📣',
+    'Small steps, big impact! 🚀',
+    'Your voice matters! 🎤',
+    'Keep exploring! 🔍',
+    "You're doing great! 🌟",
+    'Curiosity looks good on you! 🧠'
+  ];
+  const CONFETTI_COLORS = ['#FFC93C', '#FF6B5B', '#2FD9A0', '#4FC3F7', '#B39DFF'];
+
+  function spawnDoodleConfetti(x, y) {
+    if (reduced) return;
+    for (let i = 0; i < 10; i++) {
+      const piece = document.createElement('span');
+      piece.className = 'doodle-confetti-piece';
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 40 + Math.random() * 55;
+      piece.style.left = x + 'px';
+      piece.style.top = y + 'px';
+      piece.style.setProperty('--cx', (Math.cos(angle) * dist).toFixed(0) + 'px');
+      piece.style.setProperty('--cy', (Math.sin(angle) * dist).toFixed(0) + 'px');
+      piece.style.setProperty('--cr', (Math.random() * 360).toFixed(0) + 'deg');
+      piece.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 850);
+    }
+  }
+
+  function spawnDoodlePopup(x, y) {
+    const msg = MOTIVATIONAL_MESSAGES[Math.floor(Math.random() * MOTIVATIONAL_MESSAGES.length)];
+    const el = document.createElement('div');
+    el.className = 'doodle-popup';
+    el.textContent = msg;
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    document.body.appendChild(el);
+    setTimeout(() => el.classList.add('fade-out'), 1200);
+    setTimeout(() => el.remove(), 1700);
+  }
+
+  document.querySelectorAll('#aboutWorld .doodle-bob').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      el.classList.remove('clicked');
+      void el.offsetWidth; // restart the pop animation if clicked again quickly
+      el.classList.add('clicked');
+      setTimeout(() => el.classList.remove('clicked'), 500);
+
+      const rect = el.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      spawnDoodleConfetti(x, y);
+      spawnDoodlePopup(x, y - 28);
+    });
+  });
+})();
+
+/* ==================================================================== */
+/* "DISCOVERING WHERE YOU BELONG TOO?" — DESK DISCOVERY QUIZ             */
+/* ==================================================================== */
+(function () {
+  const DESKS = {
+    news:     { name: 'News',     icon: '📰', color: '#FFC93C',
+      blurb: 'covers campus and community happenings on tight deadlines — getting the who, what, when, and where out first, and getting it right.' },
+    sports:   { name: 'Sports',   icon: '🏆', color: '#FF6B5B',
+      blurb: 'chases the score and the story behind it, from varsity showdowns to intramurals, and everything riding on the outcome.' },
+    opinion:  { name: 'Opinion',  icon: '💬', color: '#2FD9A0',
+      blurb: 'gives students a platform to argue, reflect, and take a stand — sharpening how the campus thinks and talks about what matters.' },
+    feature:  { name: 'Feature',  icon: '🖋️', color: '#4FC3F7',
+      blurb: 'slows down to tell the human stories behind the headlines — profiles, narratives, and the details a straight news report skips.' },
+    scitech:  { name: 'Sci-Tech', icon: '🔬', color: '#B39DFF',
+      blurb: 'translates research, innovation, and campus tech developments into stories readers actually want to read.' },
+    literary: { name: 'Literary', icon: '📚', color: '#FFC93C',
+      blurb: "curates poetry, fiction, and creative nonfiction for the publication's literary folio — a home for student voices." },
+    cartoon:  { name: 'Cartoon',  icon: '🎨', color: '#FF6B5B',
+      blurb: 'illustrates campus life and current events through editorial cartoons and comic strips — humor and commentary in one frame.' },
+    broadcast:{ name: 'Broadcast',icon: '🎙️', color: '#2FD9A0',
+      blurb: 'brings the news to air and screen — anchoring, reporting, and producing video and audio segments for the publication.' },
+    copy:     { name: 'Copyediting & Language Review', icon: '✏️', color: '#4FC3F7',
+      blurb: 'guards grammar, clarity, and house style — the last checkpoint before anything goes to print or posts online.' },
+    graphics: { name: 'Graphics & Layout', icon: '🖼️', color: '#B39DFF',
+      blurb: 'designs the visual identity of every issue — page layout, infographics, and the look readers recognize at a glance.' }
+  };
+
+  const QUESTIONS = [
+    { icon: '📰', q: 'Do you enjoy reporting what is happening around you?',
+      options: [
+        { text: 'Yes! I want to be first with the facts.', points: { news: 3, broadcast: 1 } },
+        { text: "I like it, but I'd rather share my own take on it.", points: { opinion: 3, news: 1 } },
+        { text: "I'd rather dig into the story behind the story.", points: { feature: 3, scitech: 1 } },
+        { text: "Not really — I'd rather show it than say it.", points: { graphics: 2, cartoon: 2 } }
+      ]},
+    { icon: '🎙️', q: 'Do you enjoy speaking in front of people?',
+      options: [
+        { text: 'Absolutely — put me on a mic or camera.', points: { broadcast: 3, sports: 1 } },
+        { text: "I'd rather write the words others will say.", points: { news: 2, copy: 1 } },
+        { text: 'I like performing, but through drawing more than speaking.', points: { cartoon: 2, graphics: 2 } },
+        { text: "Not for me — I'd rather write than talk.", points: { literary: 2, feature: 1 } }
+      ]},
+    { icon: '💡', q: 'Do you like explaining complicated topics in a way people can easily understand?',
+      options: [
+        { text: 'Yes, especially science, tech, or how things work.', points: { scitech: 3 } },
+        { text: 'Yes, but more about issues people should have an opinion on.', points: { opinion: 3, feature: 1 } },
+        { text: "I'd rather turn it into a simple, funny drawing.", points: { cartoon: 3 } },
+        { text: "I'd rather make sure the explanation is airtight.", points: { copy: 2, scitech: 1 } }
+      ]},
+    { icon: '📚', q: 'Do you enjoy writing creatively?',
+      options: [
+        { text: 'Yes, I write poems and stories for fun.', points: { literary: 3 } },
+        { text: 'I like creative writing, but grounded in real lives.', points: { feature: 3, literary: 1 } },
+        { text: "I'd rather express ideas through art than words.", points: { cartoon: 2, graphics: 1 } },
+        { text: 'I prefer facts over feelings.', points: { news: 2, scitech: 1 } }
+      ]},
+    { icon: '🖼️', q: 'Do you have an eye for visual design and layout?',
+      options: [
+        { text: 'Yes, I love making things look good and organized.', points: { graphics: 3 } },
+        { text: "I'm more into drawing original illustrations.", points: { cartoon: 3, graphics: 1 } },
+        { text: 'I care more about what the words say than how they look.', points: { copy: 2, literary: 1 } },
+        { text: "I'd rather be behind a camera or mic.", points: { broadcast: 2, sports: 1 } }
+      ]},
+    { icon: '✏️', q: 'Do you enjoy checking grammar, spelling, and accuracy?',
+      options: [
+        { text: 'Yes — typos and misplaced commas bother me.', points: { copy: 3 } },
+        { text: 'I like accuracy, but more about verifying facts.', points: { news: 2, copy: 1 } },
+        { text: 'I care more about how something looks than reads.', points: { graphics: 2 } },
+        { text: 'Not really my strength.', points: { broadcast: 1, sports: 1 } }
+      ]},
+    { icon: '🏆', q: 'Do you like covering games, athletes, and sports?',
+      options: [
+        { text: 'Yes! I follow scores, stats, and every big game.', points: { sports: 3 } },
+        { text: 'I like the human side — the story behind the athlete.', points: { feature: 2, sports: 1 } },
+        { text: "I'd rather call the play-by-play live.", points: { broadcast: 2, sports: 1 } },
+        { text: "Sports aren't really my thing.", points: { scitech: 1, literary: 1 } }
+      ]},
+    { icon: '🔬', q: 'Do you enjoy researching science, technology, and innovation?',
+      options: [
+        { text: 'Yes, I love learning how new tech and discoveries work.', points: { scitech: 3 } },
+        { text: "I like it, especially debating a new tech's impact.", points: { opinion: 2, scitech: 1 } },
+        { text: "I'd rather illustrate techy or futuristic ideas.", points: { cartoon: 1, graphics: 2 } },
+        { text: 'Not particularly.', points: { literary: 1, sports: 1 } }
+      ]},
+    { icon: '🎨', q: 'Do you enjoy drawing or expressing ideas through illustrations?',
+      options: [
+        { text: "Yes, I'm always doodling or sketching something.", points: { cartoon: 3 } },
+        { text: 'I like visual storytelling more through layout.', points: { graphics: 3 } },
+        { text: 'I express ideas through words, not images.', points: { literary: 2, opinion: 1 } },
+        { text: "Not really — I'd rather report facts.", points: { news: 2 } }
+      ]},
+    { icon: '🎬', q: 'Do you enjoy producing content for audio or broadcast?',
+      options: [
+        { text: 'Yes, I want to be on air producing segments.', points: { broadcast: 3 } },
+        { text: 'I like the production side more than being on camera.', points: { graphics: 1, broadcast: 2 } },
+        { text: "I'd rather write the script than perform it.", points: { news: 2, literary: 1 } },
+        { text: 'Not my thing — I prefer print or online writing.', points: { feature: 1, copy: 1 } }
+      ]}
+  ];
+
+  const introEl = document.getElementById('quizIntro');
+  const cardEl = document.getElementById('quizCard');
+  const startBtn = document.getElementById('quizStartBtn');
+  const bodyEl = document.getElementById('quizBody');
+  const backBtn = document.getElementById('quizBackBtn');
+  const fillEl = document.getElementById('quizProgressFill');
+  const labelEl = document.getElementById('quizProgressLabel');
+
+  let step = 0; // 0..QUESTIONS.length-1 = questions, QUESTIONS.length = result
+  let answers = new Array(QUESTIONS.length).fill(null);
+
+  function updateProgress() {
+    if (step >= QUESTIONS.length) {
+      fillEl.style.width = '100%';
+      labelEl.textContent = 'Result';
+    } else {
+      fillEl.style.width = Math.round((step / QUESTIONS.length) * 100) + '%';
+      labelEl.textContent = `Question ${step + 1} of ${QUESTIONS.length}`;
+    }
+    backBtn.classList.toggle('show', step > 0);
+  }
+
+  function scoreTotals() {
+    const totals = {};
+    Object.keys(DESKS).forEach(k => totals[k] = 0);
+    answers.forEach(a => {
+      if (a == null) return;
+      const opt = QUESTIONS[a.qIndex].options[a.optIndex];
+      Object.entries(opt.points).forEach(([k, v]) => { totals[k] = (totals[k] || 0) + v; });
+    });
+    return totals;
+  }
+
+  function renderQuestion(dir) {
+    const qi = step;
+    const question = QUESTIONS[qi];
+    const selectedOpt = answers[qi] ? answers[qi].optIndex : null;
+
+    const panel = document.createElement('div');
+    panel.className = 'quiz-question-panel' + (dir ? ' slide-enter' : '');
+    panel.innerHTML = `
+      <div class="quiz-q-icon">${question.icon}</div>
+      <p class="quiz-q-text">${question.q}</p>
+      <div class="quiz-options">
+        ${question.options.map((opt, i) => `
+          <button type="button" class="quiz-option${selectedOpt === i ? ' selected' : ''}" data-i="${i}">
+            <span class="opt-dot">${selectedOpt === i ? '✓' : ''}</span>
+            <span>${opt.text}</span>
+          </button>
+        `).join('')}
+      </div>
+    `;
+    bodyEl.innerHTML = '';
+    bodyEl.appendChild(panel);
+
+    panel.querySelectorAll('.quiz-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.dataset.i, 10);
+        answers[qi] = { qIndex: qi, optIndex: i };
+        panel.querySelectorAll('.quiz-option').forEach(b => {
+          b.classList.remove('selected');
+          b.querySelector('.opt-dot').textContent = '';
+        });
+        btn.classList.add('selected');
+        btn.querySelector('.opt-dot').textContent = '✓';
+        setTimeout(() => goToStep(step + 1, 'forward'), 420);
+      });
+    });
+
+    updateProgress();
+  }
+
+  function renderResult() {
+    const totals = scoreTotals();
+    const sorted = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+    const topScore = sorted[0][1];
+    let matches = sorted.filter(([k, v]) => v > 0 && v >= topScore - 1).slice(0, 2);
+    if (matches.length === 0) matches = [sorted[0]];
+
+    const title = matches.length === 1
+      ? `You might belong in ${DESKS[matches[0][0]].name}!`
+      : `Your strengths could fit ${matches.map(m => DESKS[m[0]].name).join(' + ')}!`;
+
+    const explain = matches.map(([k]) =>
+      `As <strong>${DESKS[k].name}</strong>, you'd be someone who ${DESKS[k].blurb}`
+    ).join(' ');
+
+    const top3 = sorted.filter(([, v]) => v > 0).slice(0, 3);
+    const maxVal = top3.length ? top3[0][1] : 1;
+
+    const panel = document.createElement('div');
+    panel.className = 'quiz-question-panel slide-enter';
+    panel.innerHTML = `
+      <div class="quiz-result">
+        <div class="quiz-result-icon-wrap">
+          <div class="quiz-result-icon">${DESKS[matches[0][0]].icon}</div>
+        </div>
+        <h3 class="quiz-result-title">${title}</h3>
+        <p class="quiz-result-copy">${explain}</p>
+        <div class="quiz-bars">
+          ${top3.map(([k, v]) => `
+            <div class="quiz-bar-row">
+              <div class="quiz-bar-label"><span>${DESKS[k].icon} ${DESKS[k].name}</span><span>${v} pts</span></div>
+              <div class="quiz-bar-track"><div class="quiz-bar-fill" data-w="${Math.max(8, Math.round((v / maxVal) * 100))}" style="background:${DESKS[k].color};"></div></div>
+            </div>
+          `).join('')}
+        </div>
+        <p class="quiz-disclaimer">This is just a guide to help you explore, not a restriction — every desk welcomes applicants who are curious and willing to learn. Pick whichever excites you most.</p>
+        <div class="quiz-result-actions">
+          <button type="button" class="quiz-retake-btn" id="quizRetakeBtn">Retake the Quiz</button>
+          <button type="button" class="quiz-apply-btn" id="quizApplyBtn" data-desk="${DESKS[matches[0][0]].name}">Apply to a Desk →</button>
+        </div>
+      </div>
+    `;
+    bodyEl.innerHTML = '';
+    bodyEl.appendChild(panel);
+    backBtn.classList.remove('show');
+
+    // little confetti burst around the result icon
+    const wrap = panel.querySelector('.quiz-result-icon-wrap');
+    const colors = ['#FFC93C', '#FF6B5B', '#2FD9A0', '#4FC3F7', '#B39DFF'];
+    for (let i = 0; i < 8; i++) {
+      const c = document.createElement('span');
+      c.className = 'confetti';
+      const angle = (Math.PI * 2 * i) / 8;
+      const dist = 60 + Math.random() * 30;
+      c.style.setProperty('--cx', `${Math.cos(angle) * dist}px`);
+      c.style.setProperty('--cy', `${Math.sin(angle) * dist}px`);
+      c.style.setProperty('--cr', `${Math.random() * 360}deg`);
+      c.style.background = colors[i % colors.length];
+      c.style.animationDelay = (0.1 + Math.random() * 0.15) + 's';
+      wrap.appendChild(c);
+    }
+
+    requestAnimationFrame(() => {
+      panel.querySelectorAll('.quiz-bar-fill').forEach(el => { el.style.width = el.dataset.w + '%'; });
+    });
+
+    document.getElementById('quizRetakeBtn').addEventListener('click', () => {
+      answers = new Array(QUESTIONS.length).fill(null);
+      goToStep(0, 'back');
+    });
+    document.getElementById('quizApplyBtn').addEventListener('click', () => {
+      const deskName = document.getElementById('quizApplyBtn').dataset.desk;
+      if (typeof switchWorld === 'function') switchWorld('dashboard');
+      setTimeout(() => {
+        const radio = document.querySelector(`input[name="desk"][value="${CSS.escape(deskName)}"]`);
+        if (radio) {
+          radio.checked = true;
+          radio.closest('label').classList.add('picked');
+          radio.closest('label').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 500);
+    });
+
+    updateProgress();
+  }
+
+  function goToStep(next, dir) {
+    const current = bodyEl.firstElementChild;
+    const doTransition = current && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const render = () => {
+      step = next;
+      if (step >= QUESTIONS.length) renderResult();
+      else renderQuestion(true);
+    };
+
+    if (doTransition) {
+      current.classList.add(dir === 'back' ? 'slide-exit-right' : 'slide-exit-left');
+      setTimeout(render, 220);
+    } else {
+      render();
+    }
+  }
+
+  startBtn.addEventListener('click', () => {
+    introEl.style.display = 'none';
+    cardEl.style.display = 'block';
+    step = 0;
+    renderQuestion(false);
+  });
+
+  backBtn.addEventListener('click', () => {
+    if (step > 0) goToStep(step - 1, 'back');
+  });
+})();
+</script>
+
 </body>
 </html>
+
+
