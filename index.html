@@ -18,7 +18,7 @@
     --ink: #ffffff;
     --ink-dim: rgba(255,255,255,0.62);
     --ink-faint: rgba(255,255,255,0.40);
- 
+
     --paper: #FFFFFF;
     --yellow: #FFC93C;
     --coral: #FF6B5B;
@@ -26,17 +26,17 @@
     --sky: #4FC3F7;
     --lavender: #B39DFF;
   }
- 
+
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
- 
+
   html, body { margin: 0; min-height: 100vh; }
- 
+
   body {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
     color: var(--ink);
     transition: background-color .3s ease;
   }
- 
+
   /* ============ WORLD: APPLICATION DASHBOARD (iOS16-inspired) ============ */
   body.world-dashboard {
     background:
@@ -58,7 +58,7 @@
   @media (prefers-reduced-motion: reduce) {
     body.world-dashboard { animation: none; }
   }
- 
+
   /* ============ WORLD: ABOUT US (cartoony grid) ============ */
   body.world-about {
     background-color: var(--paper);
@@ -66,7 +66,7 @@
     background-size: 24px 24px;
     color: var(--navy);
   }
- 
+
   .world-view { display: none; padding-top: 88px; }
   .world-view.active { display: block; }
   .world-view.active .wrap { animation: worldEnter .55s cubic-bezier(.2,.8,.2,1) both; }
@@ -74,7 +74,7 @@
   @media (prefers-reduced-motion: reduce) {
     .world-view.active .wrap { animation: none; }
   }
- 
+
   /* ---------- persistent nav ---------- */
   nav.world-nav {
     position: fixed;
@@ -127,7 +127,7 @@
     background: var(--navy);
     color: #fff;
   }
- 
+
   /* ---------- transition overlay ---------- */
   #transitionOverlay {
     position: fixed;
@@ -150,12 +150,12 @@
     50%  { transform: translateX(0%); }
     100% { transform: translateX(100%); }
   }
- 
+
   /* ==================================================================== */
   /* DASHBOARD WORLD CONTENT                                              */
   /* ==================================================================== */
   #dashboardWorld .wrap { max-width: 620px; margin: 0 auto; padding: 0 18px 70px; }
- 
+
   #dashboardWorld .header { padding: 22px 20px 14px; text-align: center; }
   #dashboardWorld .eyebrow {
     font-family: 'Montserrat', sans-serif;
@@ -171,7 +171,7 @@
     color: var(--ink);
   }
   #dashboardWorld .tagline { font-size: 15px; font-weight: 500; color: var(--ink-dim); margin: 8px 0 0; }
- 
+
   #dashboardWorld .glass {
     background: var(--glass);
     backdrop-filter: blur(24px) saturate(180%);
@@ -180,23 +180,23 @@
     border-radius: 26px;
     box-shadow: 0 8px 32px rgba(0,10,60,0.28), inset 0 1px 0 rgba(255,255,255,0.25);
   }
- 
+
   #dashboardWorld .intro-text { font-size: 14.5px; color: var(--ink-dim); text-align: center; margin: 22px 0 22px; padding: 0 8px; }
- 
+
   #dashboardWorld .card { padding: 22px 20px; margin-bottom: 16px; }
   #dashboardWorld .card-label {
     font-family: 'Montserrat', sans-serif;
     font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--ink-dim); margin: 0 0 16px;
   }
- 
+
   #dashboardWorld label {
     display: block; font-size: 13.5px; font-weight: 600; color: var(--ink); margin: 16px 0 7px;
   }
   #dashboardWorld label:first-of-type { margin-top: 0; }
   #dashboardWorld label .req { color: var(--ink-dim); font-weight: 400; }
   #dashboardWorld .hint { font-size: 11.5px; color: var(--ink-faint); font-weight: 400; margin-top: 5px; }
- 
+
   #dashboardWorld input[type=text], #dashboardWorld input[type=email], #dashboardWorld input[type=url], #dashboardWorld select, #dashboardWorld textarea {
     width: 100%; font-family: inherit; font-size: 15px; padding: 12px 14px;
     border: 1px solid rgba(255,255,255,0.28); border-radius: 14px;
@@ -209,10 +209,10 @@
     outline: none; border-color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.16);
   }
   #dashboardWorld textarea { resize: vertical; min-height: 96px; }
- 
+
   #dashboardWorld .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
   @media (max-width: 480px) { #dashboardWorld .field-grid { grid-template-columns: 1fr; } }
- 
+
   #dashboardWorld .choice-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
   #dashboardWorld .choice-row .choice {
     display: inline-flex; align-items: center;
@@ -223,7 +223,7 @@
   }
   #dashboardWorld .choice input { display: none; }
   #dashboardWorld .choice.picked { background: #ffffff; border-color: #ffffff; color: var(--navy); }
- 
+
   #dashboardWorld .submit-row { margin-top: 24px; }
   #dashboardWorld button.submit {
     width: 100%; font-size: 15px; font-weight: 700; background: #ffffff; color: var(--navy);
@@ -233,7 +233,7 @@
   #dashboardWorld button.submit:active { transform: scale(0.98); }
   #dashboardWorld button.submit:disabled { opacity: 0.5; cursor: default; }
   #dashboardWorld .error-text { font-size: 12.5px; color: #ffd7d9; margin-top: 10px; display: block; text-align: center; }
- 
+
   #dashboardWorld .receipt { padding: 26px 22px; text-align: center; }
   #dashboardWorld .receipt .label {
     font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
@@ -244,12 +244,12 @@
     margin: 8px 0 0; letter-spacing: 0.02em;
   }
   #dashboardWorld .receipt p { color: var(--ink-dim); font-size: 14px; margin: 14px 0 0; line-height: 1.5; }
- 
+
   /* ==================================================================== */
   /* ABOUT US WORLD CONTENT                                               */
   /* ==================================================================== */
   #aboutWorld .wrap { max-width: 900px; margin: 0 auto; padding: 0 20px 90px; }
- 
+
   /* ---------- masthead ---------- */
   #aboutWorld .about-masthead {
     position: relative;
@@ -275,7 +275,7 @@
   @media (max-width: 640px) {
     #aboutWorld .about-masthead { padding: 100px 18px 38px; }
   }
- 
+
   /* ---------- white content containers ---------- */
   #aboutWorld .content-box {
     position: relative; z-index: 1;
@@ -288,7 +288,7 @@
   @media (max-width: 640px) {
     #aboutWorld .content-box { padding: 24px 20px; border-radius: 14px; }
   }
- 
+
   #aboutWorld .hero { text-align: center; padding: 34px 0 0; position: relative; }
   #aboutWorld .hero-blob {
     position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
@@ -316,7 +316,7 @@
   }
   #aboutWorld .hero-cta:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--yellow); }
   #aboutWorld .hero-cta:active { transform: translate(0,0); box-shadow: 3px 3px 0 var(--yellow); }
- 
+
   #aboutWorld section { margin-top: 46px; }
   #aboutWorld .section-label {
     font-family: 'Baloo 2', sans-serif; font-size: 12.5px; font-weight: 700; letter-spacing: 0.14em;
@@ -330,7 +330,7 @@
     font-family: 'Nunito', sans-serif; font-size: 16px; line-height: 1.7; color: #2a2f4a;
     max-width: 640px; margin: 0 auto; text-align: center;
   }
- 
+
   #aboutWorld .pillar-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 26px; }
   #aboutWorld .pillar {
     font-family: 'Baloo 2', sans-serif; font-size: 14.5px; font-weight: 700; color: var(--navy);
@@ -339,7 +339,7 @@
   #aboutWorld .pillar:nth-child(1) { background: var(--yellow); transform: rotate(-2deg); }
   #aboutWorld .pillar:nth-child(2) { background: var(--mint); transform: rotate(1.5deg); }
   #aboutWorld .pillar:nth-child(3) { background: var(--sky); transform: rotate(-1deg); }
- 
+
   #aboutWorld .desk-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 20px; margin-top: 30px;
@@ -360,7 +360,7 @@
   #aboutWorld .desk-card p {
     font-family: 'Nunito', sans-serif; font-size: 14.5px; line-height: 1.58; color: #383e5c; margin: 0;
   }
- 
+
   #aboutWorld .closing {
     position: relative; margin-top: 46px; text-align: center; padding: 34px 24px; border: 2.5px solid var(--navy);
     border-radius: 16px; background: #ffffff; box-shadow: 6px 6px 0 rgba(0,14,75,0.14);
@@ -374,12 +374,12 @@
   @media (max-width: 640px) {
     #aboutWorld .closing { padding: 26px 20px; }
   }
- 
+
   /* ==================================================================== */
   /* SCROLL-TRIGGERED REVEALS + PLAYFUL MOTION                            */
   /* ==================================================================== */
   #aboutWorld section { position: relative; overflow: visible; }
- 
+
   .reveal,
   #aboutWorld .desk-card,
   #aboutWorld .pillar {
@@ -405,12 +405,12 @@
   #aboutWorld .pillar-row .pillar:nth-child(1) { transition-delay: .02s; }
   #aboutWorld .pillar-row .pillar:nth-child(2) { transition-delay: .10s; }
   #aboutWorld .pillar-row .pillar:nth-child(3) { transition-delay: .18s; }
- 
+
   #aboutWorld .desk-icon { transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
   #aboutWorld .desk-card:hover .desk-icon { transform: rotate(-9deg) scale(1.12); }
   #aboutWorld .pillar { transition: transform .2s cubic-bezier(.34,1.56,.64,1); }
   #aboutWorld .pillar:hover { transform: scale(1.08) rotate(0deg) !important; }
- 
+
   /* floating doodles */
   .doodle {
     position: absolute; z-index: 2; pointer-events: none; user-select: none;
@@ -436,7 +436,7 @@
     100% { transform: scale(1) rotate(0deg); }
   }
   @media (max-width: 640px) { .doodle { display: none; } }
- 
+
   /* doodle click: confetti + motivational popup */
   .doodle-confetti-piece {
     position: fixed; top: 0; left: 0; width: 8px; height: 8px; border-radius: 2px;
@@ -467,7 +467,7 @@
     .doodle-confetti-piece { display: none; }
     .doodle-popup, .doodle-popup.fade-out { animation: none; }
   }
- 
+
   /* quiz section */
   #aboutWorld .quiz-section { margin-top: 60px; }
   .quiz-intro {
@@ -487,7 +487,7 @@
   }
   .quiz-start-btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--navy); }
   .quiz-start-btn:active { transform: translate(0,0); box-shadow: 3px 3px 0 var(--navy); }
- 
+
   .quiz-progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
   .quiz-progress-track {
     flex: 1; height: 12px; border-radius: 999px; background: rgba(0,14,75,0.09);
@@ -502,7 +502,7 @@
     font-family: 'Baloo 2', sans-serif; font-size: 12.5px; font-weight: 700; color: var(--blue);
     white-space: nowrap;
   }
- 
+
   .quiz-body { position: relative; min-height: 1px; }
   .quiz-question-panel { display: block; }
   .quiz-question-panel.slide-exit-left { animation: qExitLeft .28s ease forwards; }
@@ -511,7 +511,7 @@
   @keyframes qExitLeft { to { opacity: 0; transform: translateX(-38px); } }
   @keyframes qExitRight { to { opacity: 0; transform: translateX(38px); } }
   @keyframes qEnter { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
- 
+
   .quiz-q-icon {
     width: 54px; height: 54px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
     font-size: 26px; background: var(--yellow); border: 2.5px solid var(--navy); margin: 0 auto 14px;
@@ -539,7 +539,7 @@
   }
   .quiz-option.selected { background: var(--mint); }
   .quiz-option.selected .opt-dot { background: var(--navy); color: #fff; }
- 
+
   .quiz-nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
   .quiz-back-btn {
     font-family: 'Baloo 2', sans-serif; font-size: 13px; font-weight: 700; color: var(--blue);
@@ -548,7 +548,7 @@
   }
   .quiz-back-btn.show { opacity: 1; pointer-events: auto; }
   .quiz-back-btn:hover { text-decoration: underline; }
- 
+
   .quiz-result { text-align: center; animation: qEnter .45s cubic-bezier(.2,.8,.2,1) both; }
   .quiz-result-icon-wrap { position: relative; width: 90px; height: 90px; margin: 0 auto 6px; }
   .quiz-result-icon {
@@ -594,7 +594,7 @@
   .quiz-retake-btn { background: #fff; color: var(--navy); box-shadow: 4px 4px 0 var(--navy); }
   .quiz-apply-btn { background: var(--navy); color: #fff; box-shadow: 4px 4px 0 var(--yellow); }
   .quiz-retake-btn:hover, .quiz-apply-btn:hover { transform: translate(-2px,-2px); }
- 
+
   @media (prefers-reduced-motion: reduce) {
     .doodle-bob { animation: none; }
     .quiz-q-icon, .quiz-result-icon, .confetti { animation: none; }
@@ -603,24 +603,24 @@
 </style>
 </head>
 <body class="world-about">
- 
+
 <div id="transitionOverlay"></div>
- 
+
 <nav class="world-nav">
   <button class="nav-btn active" data-target="about">About Us</button>
   <button class="nav-btn" data-target="dashboard">Application Dashboard</button>
 </nav>
- 
+
 <!-- ==================== ABOUT US WORLD ==================== -->
 <main id="aboutWorld" class="world-view active">
- 
+
   <div class="about-masthead">
     <h1 class="masthead-wordmark">JourKnows PH</h1>
     <p class="masthead-tagline">Journalism for All</p>
   </div>
- 
+
   <div class="wrap">
- 
+
     <div class="hero">
       <div class="hero-blob"></div>
       <div class="doodle" style="top:6%; left:4%;" data-speed="-0.10" data-rot="-8"><span class="doodle-bob" style="font-size:30px;">✏️</span></div>
@@ -636,7 +636,7 @@
         <button class="hero-cta" data-target="dashboard">Apply to a Desk →</button>
       </div>
     </div>
- 
+
     <section class="reveal">
       <div class="doodle" style="top:-6%; right:2%;" data-speed="0.10" data-rot="8"><span class="doodle-bob" style="font-size:30px;">📣</span></div>
       <div class="content-box">
@@ -655,7 +655,7 @@
         </div>
       </div>
     </section>
- 
+
     <section class="reveal">
       <div class="doodle" style="top:4%; left:0%;" data-speed="-0.12" data-rot="-10"><span class="doodle-bob d2" style="font-size:28px;">💡</span></div>
       <div class="content-box">
@@ -669,7 +669,7 @@
         </p>
       </div>
     </section>
- 
+
     <section class="reveal">
       <div class="doodle" style="top:-4%; right:4%;" data-speed="0.09" data-rot="6"><span class="doodle-bob d3" style="font-size:28px;">🔍</span></div>
       <div class="content-box">
@@ -679,7 +679,7 @@
         Every desk plays a different part in getting a story from idea to publication. Here's what each one does —
         and where you might belong.
       </p>
- 
+
       <div class="desk-grid">
         <div class="desk-card" style="--accent:#FFC93C;">
           <div class="desk-icon">📰</div>
@@ -734,7 +734,7 @@
       </div>
       </div>
     </section>
- 
+
     <section class="quiz-section reveal">
       <div class="doodle" style="top:-2%; left:2%;" data-speed="-0.10" data-rot="-6"><span class="doodle-bob" style="font-size:28px;">🧭</span></div>
       <div class="doodle" style="top:6%; right:1%;" data-speed="0.12" data-rot="8"><span class="doodle-bob d2" style="font-size:26px;">🎯</span></div>
@@ -750,7 +750,7 @@
           <button class="quiz-start-btn" id="quizStartBtn">Start the Quiz →</button>
         </div>
       </div>
- 
+
       <div class="quiz-card" id="quizCard" style="display:none;">
         <div class="quiz-progress-row">
           <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
@@ -763,17 +763,17 @@
         </div>
       </div>
     </section>
- 
+
     <div class="closing reveal">
       <div class="doodle" style="top:-6%; left:6%;" data-speed="0.08" data-rot="-6"><span class="doodle-bob" style="font-size:28px;">📰</span></div>
       <h3>Ready to join the desk?</h3>
       <p>Applications are reviewed on a rolling basis — tell us where you'd like to contribute.</p>
       <button class="hero-cta" data-target="dashboard">Start your application →</button>
     </div>
- 
+
   </div>
 </main>
- 
+
 <!-- ==================== APPLICATION DASHBOARD WORLD ==================== -->
 <main id="dashboardWorld" class="world-view">
   <div class="wrap">
@@ -782,9 +782,9 @@
       <h1 class="wordmark">JourKnows PH</h1>
       <p class="tagline">Application Dashboard</p>
     </div>
- 
+
     <p class="intro-text">Tell us who you are and where you'd like to contribute. Applications are reviewed on a rolling basis.</p>
- 
+
     <form id="appForm">
       <div class="glass card">
         <p class="card-label">Applicant</p>
@@ -815,7 +815,7 @@
           </div>
         </div>
       </div>
- 
+
       <div class="glass card">
         <p class="card-label">Desk assignment</p>
         <label style="margin-top:0;">Which desk are you applying to? <span class="req">*</span></label>
@@ -835,19 +835,19 @@
         <input type="url" id="fPortfolio" placeholder="https://…">
         <p class="hint">Optional, but strengthens your application.</p>
       </div>
- 
+
       <div class="glass card">
         <p class="card-label">Statement</p>
         <label style="margin-top:0;">Why do you want to join this desk? <span class="req">*</span></label>
         <textarea id="fStatement" maxlength="600" required placeholder="150–600 characters"></textarea>
       </div>
- 
+
       <div class="submit-row">
         <button type="submit" class="submit" id="submitBtn">Submit application</button>
         <span class="error-text" id="formError"></span>
       </div>
     </form>
- 
+
     <div class="glass receipt" id="receipt" style="display:none;">
       <p class="label">Application received</p>
       <p class="receipt-code" id="receiptCode"></p>
@@ -855,7 +855,7 @@
     </div>
   </div>
 </main>
- 
+
 <script>
 /* ---------- desk choice pills ---------- */
 const desklabels = document.querySelectorAll('#deskChoices .choice');
@@ -865,7 +865,7 @@ desklabels.forEach(l => {
     l.classList.add('picked');
   });
 });
- 
+
 /* ---------- world switching + transition ---------- */
 const body = document.body;
 const overlay = document.getElementById('transitionOverlay');
@@ -873,17 +873,17 @@ const navBtns = document.querySelectorAll('[data-target]');
 const aboutWorld = document.getElementById('aboutWorld');
 const dashboardWorld = document.getElementById('dashboardWorld');
 let animating = false;
- 
+
 function currentWorld() {
   return body.classList.contains('world-dashboard') ? 'dashboard' : 'about';
 }
- 
+
 function switchWorld(target) {
   if (animating || currentWorld() === target) return;
   animating = true;
- 
+
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- 
+
   const applySwap = () => {
     body.classList.remove('world-dashboard', 'world-about');
     body.classList.add('world-' + target);
@@ -893,18 +893,18 @@ function switchWorld(target) {
       b.classList.toggle('active', b.dataset.target === target);
     });
   };
- 
+
   if (reduced) {
     applySwap();
     animating = false;
     return;
   }
- 
+
   overlay.className = 'wipe-to-' + target;
   // force reflow so the animation class re-triggers
   void overlay.offsetWidth;
   overlay.classList.add('wiping');
- 
+
   setTimeout(applySwap, 350);
   setTimeout(() => {
     overlay.classList.remove('wiping');
@@ -912,34 +912,34 @@ function switchWorld(target) {
     animating = false;
   }, 720);
 }
- 
+
 navBtns.forEach(b => b.addEventListener('click', () => switchWorld(b.dataset.target)));
- 
+
 /* ---------- application form ---------- */
 // Paste your Apps Script Web App /exec URL here (see Google Sheets backend setup).
 const JOURKNOWS_API_BASE = 'https://script.google.com/macros/s/AKfycbzyy-YP8zzF0O4Z-YMx3XjZSsL-z6XQ_Ad9vJzYSgE_nN0kWw_qeBtnNEL42C0mkWq5KA/exec';
- 
+
 function normalizePortfolioUrl(raw) {
   const v = raw.trim();
   if (!v) return '';
   return /^https?:\/\//i.test(v) ? v : 'https://' + v;
 }
- 
+
 document.getElementById('appForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const errEl = document.getElementById('formError');
   errEl.textContent = '';
- 
+
   const desk = document.querySelector('input[name="desk"]:checked');
   const statement = document.getElementById('fStatement').value.trim();
- 
+
   if (!desk) { errEl.textContent = 'Please choose a desk.'; return; }
   if (statement.length < 20) { errEl.textContent = 'Statement is too short — tell us a bit more.'; return; }
- 
+
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = 'Submitting…';
- 
+
   const payload = {
     fullName: document.getElementById('fName').value.trim(),
     email: document.getElementById('fEmail').value.trim(),
@@ -949,7 +949,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     portfolioUrl: normalizePortfolioUrl(document.getElementById('fPortfolio').value),
     statement: statement
   };
- 
+
   try {
     const res = await fetch(JOURKNOWS_API_BASE, {
       method: 'POST',
@@ -960,11 +960,11 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
       body: JSON.stringify(payload)
     });
     const result = await res.json();
- 
+
     if (!result.success) {
       throw new Error(result.message || 'Submission failed.');
     }
- 
+
     document.getElementById('appForm').style.display = 'none';
     const receipt = document.getElementById('receipt');
     receipt.style.display = 'block';
@@ -979,14 +979,14 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
   }
 });
 </script>
- 
+
 <script>
 /* ==================================================================== */
 /* SCROLL REVEALS + FLOATING DOODLE PARALLAX                            */
 /* ==================================================================== */
 (function () {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- 
+
   const revealTargets = document.querySelectorAll('#aboutWorld .reveal, #aboutWorld .desk-card, #aboutWorld .pillar');
   if (reduced) {
     revealTargets.forEach(el => el.classList.add('in-view'));
@@ -1003,7 +1003,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
   } else {
     revealTargets.forEach(el => el.classList.add('in-view'));
   }
- 
+
   if (!reduced) {
     const doodles = document.querySelectorAll('#aboutWorld .doodle');
     let ticking = false;
@@ -1023,7 +1023,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     }, { passive: true });
     updateParallax();
   }
- 
+
   /* click a floating doodle: confetti burst + a motivational pop-up */
   const MOTIVATIONAL_MESSAGES = [
     'Believe in yourself! ✨',
@@ -1036,7 +1036,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     'Curiosity looks good on you! 🧠'
   ];
   const CONFETTI_COLORS = ['#FFC93C', '#FF6B5B', '#2FD9A0', '#4FC3F7', '#B39DFF'];
- 
+
   function spawnDoodleConfetti(x, y) {
     if (reduced) return;
     for (let i = 0; i < 10; i++) {
@@ -1054,7 +1054,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
       setTimeout(() => piece.remove(), 850);
     }
   }
- 
+
   function spawnDoodlePopup(x, y) {
     const msg = MOTIVATIONAL_MESSAGES[Math.floor(Math.random() * MOTIVATIONAL_MESSAGES.length)];
     const el = document.createElement('div');
@@ -1066,7 +1066,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     setTimeout(() => el.classList.add('fade-out'), 1200);
     setTimeout(() => el.remove(), 1700);
   }
- 
+
   document.querySelectorAll('#aboutWorld .doodle-bob').forEach(el => {
     el.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1074,7 +1074,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
       void el.offsetWidth; // restart the pop animation if clicked again quickly
       el.classList.add('clicked');
       setTimeout(() => el.classList.remove('clicked'), 500);
- 
+
       const rect = el.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
@@ -1083,7 +1083,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     });
   });
 })();
- 
+
 /* ==================================================================== */
 /* "DISCOVERING WHERE YOU BELONG TOO?" — DESK DISCOVERY QUIZ             */
 /* ==================================================================== */
@@ -1110,7 +1110,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     graphics: { name: 'Graphics & Layout', icon: '🖼️', color: '#B39DFF',
       blurb: 'designs the visual identity of every issue — page layout, infographics, and the look readers recognize at a glance.' }
   };
- 
+
   const QUESTIONS = [
     { icon: '📰', q: 'Do you enjoy reporting what is happening around you?',
       options: [
@@ -1183,7 +1183,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
         { text: 'Not my thing — I prefer print or online writing.', points: { feature: 1, copy: 1 } }
       ]}
   ];
- 
+
   const introEl = document.getElementById('quizIntro');
   const cardEl = document.getElementById('quizCard');
   const startBtn = document.getElementById('quizStartBtn');
@@ -1191,10 +1191,10 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
   const backBtn = document.getElementById('quizBackBtn');
   const fillEl = document.getElementById('quizProgressFill');
   const labelEl = document.getElementById('quizProgressLabel');
- 
+
   let step = 0; // 0..QUESTIONS.length-1 = questions, QUESTIONS.length = result
   let answers = new Array(QUESTIONS.length).fill(null);
- 
+
   function updateProgress() {
     if (step >= QUESTIONS.length) {
       fillEl.style.width = '100%';
@@ -1205,7 +1205,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     }
     backBtn.classList.toggle('show', step > 0);
   }
- 
+
   function scoreTotals() {
     const totals = {};
     Object.keys(DESKS).forEach(k => totals[k] = 0);
@@ -1216,12 +1216,12 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     });
     return totals;
   }
- 
+
   function renderQuestion(dir) {
     const qi = step;
     const question = QUESTIONS[qi];
     const selectedOpt = answers[qi] ? answers[qi].optIndex : null;
- 
+
     const panel = document.createElement('div');
     panel.className = 'quiz-question-panel' + (dir ? ' slide-enter' : '');
     panel.innerHTML = `
@@ -1238,7 +1238,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     `;
     bodyEl.innerHTML = '';
     bodyEl.appendChild(panel);
- 
+
     panel.querySelectorAll('.quiz-option').forEach(btn => {
       btn.addEventListener('click', () => {
         const i = parseInt(btn.dataset.i, 10);
@@ -1252,28 +1252,28 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
         setTimeout(() => goToStep(step + 1, 'forward'), 420);
       });
     });
- 
+
     updateProgress();
   }
- 
+
   function renderResult() {
     const totals = scoreTotals();
     const sorted = Object.entries(totals).sort((a, b) => b[1] - a[1]);
     const topScore = sorted[0][1];
     let matches = sorted.filter(([k, v]) => v > 0 && v >= topScore - 1).slice(0, 2);
     if (matches.length === 0) matches = [sorted[0]];
- 
+
     const title = matches.length === 1
       ? `You might belong in ${DESKS[matches[0][0]].name}!`
       : `Your strengths could fit ${matches.map(m => DESKS[m[0]].name).join(' + ')}!`;
- 
+
     const explain = matches.map(([k]) =>
       `As <strong>${DESKS[k].name}</strong>, you'd be someone who ${DESKS[k].blurb}`
     ).join(' ');
- 
+
     const top3 = sorted.filter(([, v]) => v > 0).slice(0, 3);
     const maxVal = top3.length ? top3[0][1] : 1;
- 
+
     const panel = document.createElement('div');
     panel.className = 'quiz-question-panel slide-enter';
     panel.innerHTML = `
@@ -1301,7 +1301,7 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     bodyEl.innerHTML = '';
     bodyEl.appendChild(panel);
     backBtn.classList.remove('show');
- 
+
     // little confetti burst around the result icon
     const wrap = panel.querySelector('.quiz-result-icon-wrap');
     const colors = ['#FFC93C', '#FF6B5B', '#2FD9A0', '#4FC3F7', '#B39DFF'];
@@ -1317,11 +1317,11 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
       c.style.animationDelay = (0.1 + Math.random() * 0.15) + 's';
       wrap.appendChild(c);
     }
- 
+
     requestAnimationFrame(() => {
       panel.querySelectorAll('.quiz-bar-fill').forEach(el => { el.style.width = el.dataset.w + '%'; });
     });
- 
+
     document.getElementById('quizRetakeBtn').addEventListener('click', () => {
       answers = new Array(QUESTIONS.length).fill(null);
       goToStep(0, 'back');
@@ -1338,20 +1338,20 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
         }
       }, 500);
     });
- 
+
     updateProgress();
   }
- 
+
   function goToStep(next, dir) {
     const current = bodyEl.firstElementChild;
     const doTransition = current && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- 
+
     const render = () => {
       step = next;
       if (step >= QUESTIONS.length) renderResult();
       else renderQuestion(true);
     };
- 
+
     if (doTransition) {
       current.classList.add(dir === 'back' ? 'slide-exit-right' : 'slide-exit-left');
       setTimeout(render, 220);
@@ -1359,21 +1359,66 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
       render();
     }
   }
- 
+
   startBtn.addEventListener('click', () => {
     introEl.style.display = 'none';
     cardEl.style.display = 'block';
     step = 0;
     renderQuestion(false);
   });
- 
+
   backBtn.addEventListener('click', () => {
     if (step > 0) goToStep(step - 1, 'back');
   });
 })();
 </script>
- 
+
+<script>
+  window.chatwootSettings = {"position":"right","type":"standard","launcherTitle":"Chat with us."};
+  (function(d,t) {
+    var BASE_URL="https://app.chatwoot.com";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: 'h1FWMiPpPp6QrCZsRR8kHmQ4',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+</script>
+
+<style>
+  /* iOS16-style frosted glass for the Chatwoot launcher bubble.
+     Note: only the launcher button is stylable from here — the expanded
+     chat panel loads in a cross-origin iframe from Chatwoot's servers
+     and can't be restyled with page CSS. */
+  .woot-widget-bubble {
+    background: rgba(10, 20, 70, 0.38) !important;
+    backdrop-filter: blur(22px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.32) !important;
+    box-shadow:
+      0 8px 32px rgba(0, 10, 60, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .woot-widget-bubble:hover {
+    background: rgba(10, 20, 70, 0.5) !important;
+    box-shadow:
+      0 10px 36px rgba(0, 10, 60, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+    transform: translateY(-1px);
+  }
+  .woot-widget-bubble svg path {
+    fill: #ffffff !important;
+  }
+  .woot-widget-bubble.unread-notification::after {
+    border-color: rgba(255, 255, 255, 0.6) !important;
+  }
+</style>
+
 </body>
 </html>
-
-
