@@ -261,16 +261,56 @@
       radial-gradient(560px 340px at 15% -20%, rgba(255,255,255,0.16), transparent 60%),
       radial-gradient(520px 380px at 100% 0%, rgba(120,150,255,0.30), transparent 55%),
       linear-gradient(135deg, var(--navy) 0%, var(--blue) 55%, var(--mid-blue) 100%);
+    background-size: 160% 160%;
+    background-position: 0% 0%;
+    animation: mastheadDrift 20s ease-in-out infinite;
+  }
+  @keyframes mastheadDrift {
+    0%   { background-position: 0% 0%; }
+    50%  { background-position: 100% 45%; }
+    100% { background-position: 0% 0%; }
   }
   #aboutWorld .masthead-wordmark {
     position: relative; z-index: 1;
     font-family: 'Montserrat', sans-serif; font-weight: 800;
     font-size: clamp(34px, 8.5vw, 54px); letter-spacing: -0.02em; margin: 0; color: #ffffff;
+    display: block;
+    overflow: hidden;
+    animation: mastheadSlideUp .9s cubic-bezier(.2,.8,.2,1) both;
+  }
+  #aboutWorld .masthead-wordmark-inner {
+    display: inline-block;
+    animation: mastheadWordmarkFloat 7s ease-in-out infinite;
+    animation-delay: .9s;
+    transform-origin: center;
+    will-change: transform;
+  }
+  @keyframes mastheadSlideUp {
+    from { opacity: 0; transform: translateY(34px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes mastheadWordmarkFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-3px) rotate(-0.35deg); }
   }
   #aboutWorld .masthead-tagline {
     position: relative; z-index: 1;
     font-family: 'Baloo 2', sans-serif; font-weight: 700;
     font-size: clamp(18px, 4vw, 24px); color: rgba(255,255,255,0.90); margin: 10px 0 0;
+    display: block;
+    overflow: hidden;
+    animation: mastheadSlideUp .9s cubic-bezier(.2,.8,.2,1) .15s both;
+  }
+  #aboutWorld .masthead-tagline-inner {
+    display: inline-block;
+    animation: mastheadTaglineFloat 8s ease-in-out infinite;
+    animation-delay: 1.05s;
+    transform-origin: center;
+    will-change: transform;
+  }
+  @keyframes mastheadTaglineFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(2px) rotate(0.3deg); }
   }
   @media (max-width: 640px) {
     #aboutWorld .about-masthead { padding: 100px 18px 38px; }
@@ -350,6 +390,37 @@
     transition: transform .15s ease, box-shadow .15s ease;
   }
   #aboutWorld .desk-card:hover { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--accent, var(--yellow)); }
+
+  /* wiggly, hand-drawn idle motion for each desk card. This runs on an inner
+     wrapper so it never fights with the scroll-reveal transition or the
+     hover-lift transform, both of which live on .desk-card itself. */
+  #aboutWorld .desk-card-motion {
+    animation: deskWiggle 6s ease-in-out infinite;
+    transform-origin: center;
+    will-change: transform;
+  }
+  #aboutWorld .desk-card:hover .desk-card-motion { animation-play-state: paused; }
+  @keyframes deskWiggle {
+    0%   { transform: translate(0,0) rotate(0deg); }
+    20%  { transform: translate(1.4px,-1.1px) rotate(.7deg); }
+    40%  { transform: translate(-1.1px,1.3px) rotate(-.6deg); }
+    60%  { transform: translate(1.2px,1.1px) rotate(.5deg); }
+    80%  { transform: translate(-1.3px,-1.2px) rotate(-.7deg); }
+    100% { transform: translate(0,0) rotate(0deg); }
+  }
+  /* slightly different duration/delay per card so they drift out of sync,
+     which is what reads as organic rather than mechanical */
+  #aboutWorld .desk-grid .desk-card:nth-child(1)  .desk-card-motion { animation-duration: 5.4s; animation-delay: 0s;    }
+  #aboutWorld .desk-grid .desk-card:nth-child(2)  .desk-card-motion { animation-duration: 6.1s; animation-delay: .3s;  }
+  #aboutWorld .desk-grid .desk-card:nth-child(3)  .desk-card-motion { animation-duration: 5.8s; animation-delay: .8s;  }
+  #aboutWorld .desk-grid .desk-card:nth-child(4)  .desk-card-motion { animation-duration: 6.6s; animation-delay: .2s;  }
+  #aboutWorld .desk-grid .desk-card:nth-child(5)  .desk-card-motion { animation-duration: 5.2s; animation-delay: .6s;  }
+  #aboutWorld .desk-grid .desk-card:nth-child(6)  .desk-card-motion { animation-duration: 6.3s; animation-delay: .1s;  }
+  #aboutWorld .desk-grid .desk-card:nth-child(7)  .desk-card-motion { animation-duration: 5.6s; animation-delay: .9s;  }
+  #aboutWorld .desk-grid .desk-card:nth-child(8)  .desk-card-motion { animation-duration: 6.4s; animation-delay: .4s;  }
+  #aboutWorld .desk-grid .desk-card:nth-child(9)  .desk-card-motion { animation-duration: 5.9s; animation-delay: .7s;  }
+  #aboutWorld .desk-grid .desk-card:nth-child(10) .desk-card-motion { animation-duration: 6.0s; animation-delay: .5s;  }
+
   #aboutWorld .desk-icon {
     font-size: 24px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
     background: var(--accent, var(--yellow)); border: 2.5px solid var(--navy); border-radius: 13px; margin-bottom: 12px;
@@ -466,6 +537,12 @@
     .doodle-bob.clicked { animation: none; }
     .doodle-confetti-piece { display: none; }
     .doodle-popup, .doodle-popup.fade-out { animation: none; }
+    #aboutWorld .about-masthead,
+    #aboutWorld .masthead-wordmark,
+    #aboutWorld .masthead-tagline,
+    #aboutWorld .masthead-wordmark-inner,
+    #aboutWorld .masthead-tagline-inner,
+    #aboutWorld .desk-card-motion { animation: none; }
   }
 
   /* quiz section */
@@ -615,8 +692,8 @@
 <main id="aboutWorld" class="world-view active">
 
   <div class="about-masthead">
-    <h1 class="masthead-wordmark">JourKnows PH</h1>
-    <p class="masthead-tagline">Journalism for All</p>
+    <h1 class="masthead-wordmark"><span class="masthead-wordmark-inner">JourKnows PH</span></h1>
+    <p class="masthead-tagline"><span class="masthead-tagline-inner">Journalism for All</span></p>
   </div>
 
   <div class="wrap">
@@ -682,54 +759,74 @@
 
       <div class="desk-grid">
         <div class="desk-card" style="--accent:#FFC93C;">
+          <div class="desk-card-motion">
           <div class="desk-icon">📰</div>
           <h3>News</h3>
           <p>Covers campus and community happenings on tight deadlines — getting the who, what, when, and where out first, and getting it right.</p>
+          </div>
         </div>
         <div class="desk-card" style="--accent:#FF6B5B;">
+          <div class="desk-card-motion">
           <div class="desk-icon">🏆</div>
           <h3>Sports</h3>
           <p>Chases the score and the story behind it, from varsity showdowns to intramurals, and everything riding on the outcome.</p>
+          </div>
         </div>
         <div class="desk-card" style="--accent:#2FD9A0;">
+          <div class="desk-card-motion">
           <div class="desk-icon">💬</div>
           <h3>Opinion</h3>
           <p>Gives students a platform to argue, reflect, and take a stand — sharpening how the campus thinks and talks about what matters.</p>
+          </div>
         </div>
         <div class="desk-card" style="--accent:#4FC3F7;">
+          <div class="desk-card-motion">
           <div class="desk-icon">🖋️</div>
           <h3>Feature</h3>
           <p>Slows down to tell the human stories behind the headlines — profiles, narratives, and the details a straight news report skips.</p>
+          </div>
         </div>
         <div class="desk-card" style="--accent:#B39DFF;">
+          <div class="desk-card-motion">
           <div class="desk-icon">🔬</div>
           <h3>Sci-Tech</h3>
           <p>Translates research, innovation, and campus tech developments into stories readers actually want to read.</p>
+          </div>
         </div>
         <div class="desk-card" style="--accent:#FFC93C;">
+          <div class="desk-card-motion">
           <div class="desk-icon">📚</div>
           <h3>Literary</h3>
           <p>Curates poetry, fiction, and creative nonfiction for the publication's literary folio — a home for student voices.</p>
+          </div>
         </div>
         <div class="desk-card" style="--accent:#FF6B5B;">
+          <div class="desk-card-motion">
           <div class="desk-icon">🎨</div>
           <h3>Cartoon</h3>
           <p>Illustrates campus life and current events through editorial cartoons and comic strips — humor and commentary in one frame.</p>
+          </div>
         </div>
         <div class="desk-card" style="--accent:#2FD9A0;">
+          <div class="desk-card-motion">
           <div class="desk-icon">🎙️</div>
           <h3>Broadcast</h3>
           <p>Brings the news to air and screen — anchoring, reporting, and producing video and audio segments for the publication.</p>
+          </div>
         </div>
         <div class="desk-card" style="--accent:#4FC3F7;">
+          <div class="desk-card-motion">
           <div class="desk-icon">✏️</div>
           <h3>Copyediting &amp; Language Review</h3>
           <p>Guards grammar, clarity, and house style — the last checkpoint before anything goes to print or posts online.</p>
+          </div>
         </div>
         <div class="desk-card" style="--accent:#B39DFF;">
+          <div class="desk-card-motion">
           <div class="desk-icon">🖼️</div>
           <h3>Graphics &amp; Layout</h3>
           <p>Designs the visual identity of every issue — page layout, infographics, and the look readers recognize at a glance.</p>
+          </div>
         </div>
       </div>
       </div>
