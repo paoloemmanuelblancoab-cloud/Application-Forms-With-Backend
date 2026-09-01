@@ -1423,7 +1423,7 @@
     <p class="intro-text">Tell us who you are and where you'd like to contribute. Applications are reviewed on a rolling basis.</p>
 
     <form id="appForm">
-      <div class="glass card">
+            <div class="glass card">
         <p class="card-label">Applicant</p>
         <div class="field-grid">
           <div>
@@ -1435,6 +1435,10 @@
             <input type="email" id="fEmail" required>
           </div>
           <div>
+            <label>Age <span class="req">*</span></label>
+            <input type="number" id="fAge" min="10" max="100" required>
+          </div>
+          <div>
             <label>School / University <span class="req">*</span></label>
             <input type="text" id="fSchool" required>
           </div>
@@ -1442,6 +1446,9 @@
             <label>Year level <span class="req">*</span></label>
             <select id="fYear" required>
               <option value="">Select…</option>
+              <option>Elementary School</option>
+              <option>Junior High School</option>
+              <option>Senior High School</option>
               <option>1st Year</option>
               <option>2nd Year</option>
               <option>3rd Year</option>
@@ -1474,6 +1481,13 @@
         <label>Portfolio or writing sample link</label>
         <input type="url" id="fPortfolio" placeholder="https://…">
         <p class="hint">Optional, but strengthens your application.</p>
+      </div>
+
+            <div class="glass card">
+        <p class="card-label">Experience</p>
+        <label style="margin-top:0;">Relevant journalism experience</label>
+        <textarea id="fExperience" maxlength="600" placeholder="e.g. publications you've written for, workshops attended, prior desk roles — leave blank if this is your first time"></textarea>
+        <p class="hint">Optional — tell us about any past campus journalism, writing, or media work.</p>
       </div>
 
       <div class="glass card">
@@ -1597,13 +1611,15 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
   btn.disabled = true;
   btn.textContent = 'Submitting…';
 
-  const payload = {
+   const payload = {
     fullName: document.getElementById('fName').value.trim(),
     email: document.getElementById('fEmail').value.trim(),
+    age: document.getElementById('fAge').value.trim(),
     school: document.getElementById('fSchool').value.trim(),
     yearLevel: document.getElementById('fYear').value,
     desk: desk.value,
     portfolioUrl: normalizePortfolioUrl(document.getElementById('fPortfolio').value),
+    experience: document.getElementById('fExperience').value.trim(),
     statement: statement
   };
 
