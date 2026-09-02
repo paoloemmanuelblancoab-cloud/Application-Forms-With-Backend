@@ -303,7 +303,7 @@
     display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800;
     letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 16px; border-radius: 999px; margin: 0 0 10px;
   }
-  #dashboardWorld .status-message { font-size: 14.5px; font-weight: 600; margin: 0; line-height: 1.5; white-space: pre-line; }
+ #dashboardWorld .status-message { font-size: 14.5px; font-weight: 600; margin: 0; line-height: 1.5; white-space: pre-line; text-align: left; }
 
   #dashboardWorld .status-result.status-trainee   { background: rgba(185,243,210,0.14); border: 1px solid rgba(185,243,210,0.45); }
   #dashboardWorld .status-trainee .status-badge   { background: #B9F3D2; color: #0B6B3A; }
@@ -1724,7 +1724,7 @@ function buildAcceptanceMessage(result) {
   const fullName = (result.fullName || '').toUpperCase();
   const applicantType = result.status === 'trainee' ? 'TRAINEE' : 'VOLUNTEER';
   const desk = result.desk || '';
-  return `Hello, ${fullName},\nYou've been accepted as a ${applicantType} under the ${desk} Desk Department! Additional details will be sent in 1\u20133 days.`;
+  return `Hello, ${fullName},\n\nYou've been accepted as a ${applicantType} under the ${desk} Desk Department!\n\nAdditional details will be sent through email in 1\u20133 days.`;
 }
 
 const statusCodeInput = document.getElementById('statusCode');
