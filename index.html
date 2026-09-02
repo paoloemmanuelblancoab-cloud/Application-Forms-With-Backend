@@ -202,7 +202,7 @@
   #dashboardWorld label .req { color: var(--ink-dim); font-weight: 400; }
   #dashboardWorld .hint { font-size: 11.5px; color: var(--ink-faint); font-weight: 400; margin-top: 5px; }
 
-  #dashboardWorld input[type=text], #dashboardWorld input[type=email], #dashboardWorld input[type=url], #dashboardWorld select, #dashboardWorld textarea {
+  #dashboardWorld input[type=text], #dashboardWorld input[type=email], #dashboardWorld input[type=url], #dashboardWorld input[type=number], #dashboardWorld select, #dashboardWorld textarea {
     width: 100%; font-family: inherit; font-size: 15px; padding: 12px 14px;
     border: 1px solid rgba(255,255,255,0.28); border-radius: 14px;
     background: rgba(255,255,255,0.10); color: var(--ink);
@@ -214,6 +214,24 @@
     outline: none; border-color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.16);
   }
   #dashboardWorld textarea { resize: vertical; min-height: 96px; }
+
+  /* Frosted glass treatment for the Age field only — layout/typography/spacing unchanged */
+  #dashboardWorld input#fAge {
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.32);
+    border-radius: 22px;
+    color: var(--ink);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
+  }
+  #dashboardWorld input#fAge:focus {
+    background: rgba(255,255,255,0.20);
+    backdrop-filter: blur(18px) saturate(190%);
+    -webkit-backdrop-filter: blur(18px) saturate(190%);
+    border-color: rgba(255,255,255,0.65);
+  }
+  #dashboardWorld input#fAge::placeholder { color: var(--ink-faint); }
 
   #dashboardWorld .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
   @media (max-width: 480px) { #dashboardWorld .field-grid { grid-template-columns: 1fr; } }
@@ -285,7 +303,7 @@
     display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800;
     letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 16px; border-radius: 999px; margin: 0 0 10px;
   }
-  #dashboardWorld .status-message { font-size: 14.5px; font-weight: 600; margin: 0; line-height: 1.5; }
+  #dashboardWorld .status-message { font-size: 14.5px; font-weight: 600; margin: 0; line-height: 1.5; white-space: pre-line; }
 
   #dashboardWorld .status-result.status-trainee   { background: rgba(185,243,210,0.14); border: 1px solid rgba(185,243,210,0.45); }
   #dashboardWorld .status-trainee .status-badge   { background: #B9F3D2; color: #0B6B3A; }
@@ -1686,12 +1704,28 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
 // was generated at submission time. No second code is created here — this
 // just looks up the status already stored against that code in the Sheet.
 const STATUS_MAP = {
-  trainee:   { label: 'Accepted as Trainee',      className: 'status-trainee',   message: 'Congratulations! You\u2019ve been accepted as a Trainee!' },
-  volunteer: { label: 'Accepted as Volunteer',    className: 'status-volunteer', message: 'Congratulations! You\u2019ve been accepted as a Volunteer!' },
+  // trainee/volunteer messages are built dynamically from the applicant's own
+  // submitted data (full name, desk) returned by the backend — see
+  // buildAcceptanceMessage() below. No message is hard-coded here for them.
+  trainee:   { label: 'Accepted as Trainee',      className: 'status-trainee' },
+  volunteer: { label: 'Accepted as Volunteer',    className: 'status-volunteer' },
   review:    { label: 'Application Under Review', className: 'status-review',    message: 'Your application is currently under review.' },
   reviewed:  { label: 'Application Reviewed',     className: 'status-reviewed',  message: 'Your application has been reviewed.' },
   rejected:  { label: 'Didn\u2019t Make the Cut',  className: 'status-rejected',  message: 'Thank you for applying. Unfortunately, your application did not make the cut.' }
 };
+
+// Builds the acceptance message template using ONLY data pulled from the
+// applicant's own stored application record (as returned by the backend for
+// this application code) — never hard-coded.
+//   result.fullName -> Full Name (uppercased here)
+//   result.status   -> 'trainee' or 'volunteer' (the accepted applicant type)
+//   result.desk     -> the desk/department selected on their application
+function buildAcceptanceMessage(result) {
+  const fullName = (result.fullName || '').toUpperCase();
+  const applicantType = result.status === 'trainee' ? 'TRAINEE' : 'VOLUNTEER';
+  const desk = result.desk || '';
+  return `Hello, ${fullName},\nYou've been accepted as a ${applicantType} under the ${desk} Desk Department! Additional details will be sent in 1\u20133 days.`;
+}
 
 const statusCodeInput = document.getElementById('statusCode');
 const statusCheckBtn = document.getElementById('statusCheckBtn');
@@ -1740,7 +1774,9 @@ async function checkApplicationStatus() {
 
     statusResult.classList.add(info.className);
     statusBadge.textContent = info.label;
-    statusMessage.textContent = info.message;
+    statusMessage.textContent = (result.status === 'trainee' || result.status === 'volunteer')
+      ? buildAcceptanceMessage(result)
+      : info.message;
     statusResult.style.display = 'block';
   } catch (err) {
     console.error('Status check error:', err);
