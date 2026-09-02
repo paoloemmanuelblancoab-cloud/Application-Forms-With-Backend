@@ -674,6 +674,30 @@
   #aboutWorld .pillar { transition: transform .2s cubic-bezier(.34,1.56,.64,1); }
   #aboutWorld .pillar:hover { transform: scale(1.08) rotate(0deg) !important; }
 
+  /* ==================================================================== */
+  /* ABOUT US: elastic fade-in + slide-up for descriptions & content      */
+  /* (does NOT apply to the JourKnows Story timeline — see .timeline*     */
+  /* rules above, which are left completely untouched)                   */
+  /* ==================================================================== */
+  #aboutWorld .elastic-reveal {
+    opacity: 0;
+    transform: translateY(34px);
+    transition: opacity .55s cubic-bezier(.22,.9,.32,1),
+                transform .85s cubic-bezier(.34,1.56,.64,1);
+    will-change: opacity, transform;
+  }
+  #aboutWorld .elastic-reveal.in-view { opacity: 1; transform: translateY(0); }
+  @media (max-width: 640px) {
+    #aboutWorld .elastic-reveal {
+      transform: translateY(20px);
+      transition: opacity .45s cubic-bezier(.22,.9,.32,1),
+                  transform .65s cubic-bezier(.34,1.56,.64,1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #aboutWorld .elastic-reveal { transition: none; }
+  }
+
   /* floating doodles */
   .doodle {
     position: absolute; z-index: 2; pointer-events: none; user-select: none;
@@ -1056,8 +1080,8 @@
       <div class="doodle" style="top:2%; right:6%;" data-speed="0.14" data-rot="10"><span class="doodle-bob d2" style="font-size:28px;">⭐</span></div>
       <div class="doodle" style="bottom:0%; left:12%;" data-speed="0.08" data-rot="-4"><span class="doodle-bob d3" style="font-size:26px;">💬</span></div>
       <div class="content-box">
-        <p class="hero-eyebrow">Get to know us</p>
-        <p class="hero-blurb">
+        <p class="hero-eyebrow elastic-reveal">Get to know us</p>
+        <p class="hero-blurb elastic-reveal">
           We're a Filipino mass media organization built around campus journalism education and media literacy —
           connecting student publications, training the next wave of campus reporters, and giving young Filipinos
           the tools to tell their communities' stories responsibly.
@@ -1069,9 +1093,9 @@
     <section class="reveal">
       <div class="doodle" style="top:-6%; right:2%;" data-speed="0.10" data-rot="8"><span class="doodle-bob" style="font-size:30px;">📣</span></div>
       <div class="content-box">
-        <p class="section-label">What we stand for</p>
-        <h2 class="section-title">Our advocacy</h2>
-        <p class="section-copy">
+        <p class="section-label elastic-reveal">What we stand for</p>
+        <h2 class="section-title elastic-reveal">Our advocacy</h2>
+        <p class="section-copy elastic-reveal">
           Good journalism doesn't start in a newsroom — it starts from initiative,
           with a student learning to ask the right questions. JourKnows PH exists to strengthen that starting point:
           training campus journalists in ethics and craft, and helping every Filipino to have access in Journalism. 
@@ -1088,9 +1112,9 @@
     <section class="reveal">
       <div class="doodle" style="top:4%; left:0%;" data-speed="-0.12" data-rot="-10"><span class="doodle-bob d2" style="font-size:28px;">💡</span></div>
       <div class="content-box">
-        <p class="section-label">Who we are</p>
-        <h2 class="section-title">Rooted in the campus press</h2>
-        <p class="section-copy">
+        <p class="section-label elastic-reveal">Who we are</p>
+        <h2 class="section-title elastic-reveal">Rooted in the campus press</h2>
+        <p class="section-copy elastic-reveal">
             JourKnows PH grew out of the campus journalism community itself, namely from
   "Campus Journalist Ako!"—student writers, editors, photographers, and
   designers who wanted a shared space to learn from each other. We run
@@ -1105,11 +1129,12 @@
 
     <section class="story-section reveal">
       <div class="story-header">
-        <p class="story-eyebrow">Our story</p>
-        <h2 class="story-title">THE JOURKNOWS<br>STORY</h2>
-        <p class="story-subtitle">From a community of campus journalists to a growing movement for journalism for all.</p>
+        <p class="story-eyebrow elastic-reveal">Our story</p>
+        <h2 class="story-title elastic-reveal">THE JOURKNOWS<br>STORY</h2>
+        <p class="story-subtitle elastic-reveal">From a community of campus journalists to a growing movement for journalism for all.</p>
       </div>
 
+      <!-- Timeline intentionally excluded from the elastic-reveal animation: it keeps its existing design/behavior (see .timeline* styles + tlIo observer). -->
       <div class="timeline" id="storyTimeline">
         <div class="timeline-item" style="--tl-accent: var(--yellow);">
           <span class="timeline-marker"></span>
@@ -1148,9 +1173,9 @@
     <section class="living-archive" aria-labelledby="livingArchiveTitle">
       <div class="living-archive-inner">
         <div class="archive-header">
-          <span class="archive-kicker">Est. 2014</span>
-          <h2 class="archive-title" id="livingArchiveTitle">THE LIVING ARCHIVE</h2>
-          <p class="archive-intro">
+          <span class="archive-kicker elastic-reveal">Est. 2014</span>
+          <h2 class="archive-title elastic-reveal" id="livingArchiveTitle">THE LIVING ARCHIVE</h2>
+          <p class="archive-intro elastic-reveal">
             A scrapbook of how JourKnows got here.
             
           </p>
@@ -1173,7 +1198,7 @@
               <div class="archive-photo">
                 <img src="archive-02-jourknows-iloilo.jpg" alt="JourKnows Iloilo" loading="lazy">
               </div>
-              <p class="archive-caption">Fig. 01 — Humble Beginnings</p>
+              <p class="archive-caption elastic-reveal">Fig. 01 — Humble Beginnings</p>
             </div>
             <div class="archive-detail" hidden>
               <p>JourKnows is established as a mass media organization and begins building a community around journalism. Back in 2019, Campus Journalist Ako! organized JourKnows Iloilo, sponsored by the Ateneo De Iloilo Alumni Association.</p>
@@ -1196,7 +1221,7 @@
               <div class="archive-photo">
                 <img src="revival.jpg" alt="An illustration our renewed mission" loading="lazy">
               </div>
-              <p class="archive-caption">Fig. 02 — Starting our mission </p>
+              <p class="archive-caption elastic-reveal">Fig. 02 — Starting our mission </p>
             </div>
             <div class="archive-detail" hidden>
               <p>The organization establishes its renewed vision around the belief that journalism must be accessible for everybody. </p>
@@ -1218,7 +1243,7 @@
               <div class="archive-photo">
                 <img src="archive-03-training-day.jpg" alt="A JourKnows facilitator leading a classroom of student journalists during a training session." loading="lazy">
               </div>
-              <p class="archive-caption">Fig. 03 — Training day</p>
+              <p class="archive-caption elastic-reveal">Fig. 03 — Training day</p>
             </div>
             <div class="archive-detail" hidden>
               <p>We run workshops, share resources, and spotlight the work coming out of publications across the country, because a stronger campus press today means a stronger press corps tomorrow.</p>
@@ -1240,7 +1265,7 @@
               <div class="archive-photo">
                 <img src="archive-04-editorial-workshop.jpg" alt="Student editors and JourKnows volunteers working together on a story during a workshop." loading="lazy">
               </div>
-              <p class="archive-caption">Fig. 04 — Developing stories </p>
+              <p class="archive-caption elastic-reveal">Fig. 04 — Developing stories </p>
             </div>
             <div class="archive-detail" hidden>
               <p> Student editors and JourKnows volunteers working together on a story during a workshop.</p>
@@ -1262,7 +1287,7 @@
               <div class="archive-photo">
                 <img src="archive-05-campus-camaraderie.jpg" alt="Two student journalists sharing a laugh during a JourKnows session." loading="lazy">
               </div>
-              <p class="archive-caption">Fig. 05 — Campus camaraderie</p>
+              <p class="archive-caption elastic-reveal">Fig. 05 — Campus camaraderie</p>
             </div>
             <div class="archive-detail" hidden>
               <p>JourKnows continues expanding its journalism community through training, coverage, events, partnerships, and opportunities for young journalists.</p>
@@ -1277,9 +1302,9 @@
     <section class="reveal">
       <div class="doodle" style="top:-4%; right:4%;" data-speed="0.09" data-rot="6"><span class="doodle-bob d3" style="font-size:28px;">🔍</span></div>
       <div class="content-box">
-      <p class="section-label">Find your fit</p>
-      <h2 class="section-title">Meet the desks</h2>
-      <p class="section-copy">
+      <p class="section-label elastic-reveal">Find your fit</p>
+      <h2 class="section-title elastic-reveal">Meet the desks</h2>
+      <p class="section-copy elastic-reveal">
         Every desk plays a different part in getting a story from idea to publication. Here's what each one does —
         and where you might belong.
       </p>
@@ -1358,10 +1383,10 @@
       <div class="doodle" style="top:-2%; left:2%;" data-speed="-0.10" data-rot="-6"><span class="doodle-bob" style="font-size:28px;">🧭</span></div>
       <div class="doodle" style="top:6%; right:1%;" data-speed="0.12" data-rot="8"><span class="doodle-bob d2" style="font-size:26px;">🎯</span></div>
       <div class="content-box">
-        <p class="section-label">Still deciding?</p>
-        <h2 class="section-title">Discovering Where You Belong Too?</h2>
+        <p class="section-label elastic-reveal">Still deciding?</p>
+        <h2 class="section-title elastic-reveal">Discovering Where You Belong Too?</h2>
         <div class="quiz-intro" id="quizIntro">
-          <p class="section-copy">
+          <p class="section-copy elastic-reveal">
             Not sure which desk fits you best? Answer a few quick, playful questions and we'll point you toward
             the desks that match your interests and strengths. It only takes about a minute — and it's just a
             guide, not a verdict.
@@ -1385,8 +1410,8 @@
 
     <div class="closing reveal">
       <div class="doodle" style="top:-6%; left:6%;" data-speed="0.08" data-rot="-6"><span class="doodle-bob" style="font-size:28px;">📰</span></div>
-      <h3>Ready to join the desk?</h3>
-      <p>Applications are reviewed on a rolling basis — tell us where you'd like to contribute.</p>
+      <h3 class="elastic-reveal">Ready to join the desk?</h3>
+      <p class="elastic-reveal">Applications are reviewed on a rolling basis — tell us where you'd like to contribute.</p>
       <button class="hero-cta" data-target="dashboard">Start your application →</button>
     </div>
 
@@ -1756,6 +1781,28 @@ statusCodeInput.addEventListener('keydown', (e) => {
     revealTargets.forEach(el => io.observe(el));
   } else {
     revealTargets.forEach(el => el.classList.add('in-view'));
+  }
+
+  /* ================================================================== */
+  /* ABOUT US: elastic fade-in + slide-up for descriptions & content    */
+  /* Deliberately excludes anything inside #storyTimeline (the          */
+  /* "JourKnows Story" timeline), which keeps its own existing effect.  */
+  /* ================================================================== */
+  const elasticTargets = document.querySelectorAll('#aboutWorld .elastic-reveal');
+  if (reduced) {
+    elasticTargets.forEach(el => el.classList.add('in-view'));
+  } else if ('IntersectionObserver' in window) {
+    const elasticIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          elasticIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+    elasticTargets.forEach(el => elasticIo.observe(el));
+  } else {
+    elasticTargets.forEach(el => el.classList.add('in-view'));
   }
 
   /* ================================================================== */
