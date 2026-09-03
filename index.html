@@ -1161,6 +1161,14 @@
     .archive-modal { transition: none; }
   }
 </style>
+
+<!--
+  reCAPTCHA v3 (invisible) — replace YOUR_RECAPTCHA_SITE_KEY below with the
+  SITE key from https://www.google.com/recaptcha/admin (the SITE key is
+  public and safe to put in front-end code; the matching SECRET key is
+  stored server-side only — see setRecaptchaSecretKey() in Code.gs).
+-->
+<script src="https://www.google.com/recaptcha/api.js?render=6LcZwqYtAAAAAHuxrW5g6QEdh08c439xcBFdiZjK"></script>
 </head>
 <body class="world-about">
 
@@ -1744,6 +1752,27 @@ navBtns.forEach(b => b.addEventListener('click', () => switchWorld(b.dataset.tar
 // Paste your Apps Script Web App /exec URL here (see Google Sheets backend setup).
 const JOURKNOWS_API_BASE = 'https://script.google.com/macros/s/AKfycbxJErC0aPQlcaVo6qwcWaiiVPsbwDvwgsfiMU7HeKaa7NIYPIeFTxJqGWVJ_7iG1Wf0dg/exec';
 
+// Must match RECAPTCHA_EXPECTED_ACTION in Code.gs, and the site key must
+// match the one loaded in the <script> tag in <head>.
+const RECAPTCHA_SITE_KEY = '6LcZwqYtAAAAAHuxrW5g6QEdh08c439xcBFdiZjK';
+const RECAPTCHA_ACTION = 'submit_application';
+
+/**
+ * Resolves to a fresh reCAPTCHA v3 token, or rejects if the reCAPTCHA
+ * script failed to load (e.g. blocked by an ad blocker / offline).
+ */
+function getRecaptchaToken(action) {
+  return new Promise((resolve, reject) => {
+    if (typeof grecaptcha === 'undefined') {
+      reject(new Error('Verification could not load. Please check your connection and refresh.'));
+      return;
+    }
+    grecaptcha.ready(() => {
+      grecaptcha.execute(RECAPTCHA_SITE_KEY, { action }).then(resolve).catch(reject);
+    });
+  });
+}
+
 function normalizePortfolioUrl(raw) {
   const v = raw.trim();
   if (!v) return '';
@@ -1765,6 +1794,17 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
   btn.disabled = true;
   btn.textContent = 'Submitting…';
 
+  let recaptchaToken;
+  try {
+    recaptchaToken = await getRecaptchaToken(RECAPTCHA_ACTION);
+  } catch (err) {
+    console.error('reCAPTCHA error:', err);
+    errEl.textContent = 'Could not verify you\u2019re human. Please refresh the page and try again.';
+    btn.disabled = false;
+    btn.textContent = 'Submit application';
+    return;
+  }
+
    const payload = {
     fullName: document.getElementById('fName').value.trim(),
     email: document.getElementById('fEmail').value.trim(),
@@ -1774,7 +1814,8 @@ document.getElementById('appForm').addEventListener('submit', async (e) => {
     desk: desk.value,
     portfolioUrl: normalizePortfolioUrl(document.getElementById('fPortfolio').value),
     experience: document.getElementById('fExperience').value.trim(),
-    statement: statement
+    statement: statement,
+    recaptchaToken: recaptchaToken
   };
 
   try {
