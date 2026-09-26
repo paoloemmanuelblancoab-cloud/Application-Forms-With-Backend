@@ -422,6 +422,81 @@
   #dashboardWorld .status-rejected .status-badge   { background: var(--coral); color: #ffffff; }
   #dashboardWorld .status-rejected .status-message { color: #FFE0DB; }
 
+
+  /* ---------- accepted applicant celebration ---------- */
+  #acceptedCelebration {
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    width:100vw;
+    height:100dvh;
+    max-width:none;
+    margin:0;
+    padding:clamp(18px,4vw,48px);
+    box-sizing:border-box;
+    overflow:hidden;
+    background:linear-gradient(135deg,#f8fbff 0%,#dfeaff 48%,#ffffff 100%);
+    align-items:center;
+    justify-content:center;
+  }
+  #dashboardWorld.accepted-state .dashboard-normal-content,
+  #dashboardWorld.accepted-state .header,
+  #dashboardWorld.accepted-state .intro-text,
+  #dashboardWorld.accepted-state #statusChecker,
+  #dashboardWorld.accepted-state > .wrap {
+    /* The celebration itself is fixed to the viewport, so the dashboard underneath is irrelevant. */
+  }
+  #dashboardWorld.accepted-state #acceptedCelebration { display:flex; }
+  #dashboardWorld.accepted-state { overflow:hidden; }
+  body.accepted-screen-active { overflow:hidden; }
+  .accepted-card {
+    position:relative;
+    width:min(100%,980px);
+    max-height:calc(100dvh - 40px);
+    overflow:auto;
+    box-sizing:border-box;
+    background:#fff;
+    color:var(--navy);
+    border:6px solid var(--navy);
+    border-radius:34px;
+    padding:clamp(34px,6vh,72px) clamp(24px,6vw,70px) clamp(30px,5vh,58px);
+    text-align:center;
+    box-shadow:18px 18px 0 var(--navy);
+  }
+  .accepted-card::before { content:""; position:absolute; inset:18px; border:3px dashed var(--blue); border-radius:26px; pointer-events:none; opacity:.22; }
+  .accepted-kicker { position:relative; display:inline-block; margin:0 0 12px; padding:9px 18px; background:var(--yellow); border:3px solid var(--navy); border-radius:999px; font-family:'Poppins',sans-serif; font-size:14px; font-weight:900; letter-spacing:.08em; }
+  .accepted-title { position:relative; margin:0; font-family:'Baloo 2',sans-serif; font-size:clamp(48px,8vw,92px); line-height:.92; font-weight:800; color:var(--navy); text-shadow:5px 5px 0 var(--yellow); }
+  .accepted-subtitle { position:relative; margin:24px auto 10px; max-width:760px; font-family:'Nunito',sans-serif; font-size:clamp(20px,2.4vw,28px); font-weight:800; line-height:1.3; }
+  .accepted-details { position:relative; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:24px auto 26px; }
+  .accepted-detail { border:3px solid var(--navy); border-radius:16px; padding:13px 20px; background:#eef4ff; font-family:'Poppins',sans-serif; font-weight:800; }
+  .accepted-detail small { display:block; margin-top:3px; font-size:11px; opacity:.65; letter-spacing:.05em; text-transform:uppercase; }
+  .accepted-note { position:relative; margin:0 auto; max-width:680px; font-size:16px; font-weight:700; color:#334; line-height:1.55; }
+  .emoji-row { position:relative; z-index:6; display:flex; justify-content:center; gap:14px; margin:26px auto 0; }
+  .celebrate-emoji { position:relative; z-index:6; flex:0 0 auto; width:58px; height:58px; border:4px solid var(--navy); border-radius:50%; background:#fff; font-size:28px; cursor:pointer; box-shadow:5px 5px 0 var(--navy); }
+  .celebrate-emoji:hover { transform:scale(1.08) rotate(-4deg); }
+  .celebrate-emoji.floating-emoji { position:fixed; z-index:100001; animation:emojiFloat 3s ease-in-out infinite; }
+  .floating-one { top:clamp(22px,7vh,70px); left:clamp(18px,5vw,70px); }
+  .floating-two { top:clamp(22px,7vh,70px); right:clamp(18px,5vw,70px); animation-delay:1.1s !important; }
+  @keyframes emojiFloat { 0%,100%{ transform:translateY(0) rotate(-3deg); } 50%{ transform:translateY(-12px) rotate(4deg); } }
+  .encouragement-bubble { position:fixed; left:50%; bottom:clamp(20px,5vh,55px); z-index:100002; display:none; transform:translateX(-50%); width:max-content; max-width:min(82vw,600px); padding:13px 20px; background:var(--navy); color:#fff; border:3px solid var(--navy); border-radius:18px; font-weight:800; box-shadow:6px 6px 0 var(--yellow); }
+  .encouragement-bubble.show { display:block; animation:bubbleIn .25s ease both; }
+  @keyframes bubbleIn { from { opacity:0; transform:translate(-50%,10px) scale(.96); } to { opacity:1; transform:translate(-50%,0) scale(1); } }
+  .confetti-piece { position:fixed; z-index:100000; top:-24px; width:10px; height:18px; border:2px solid rgba(0,0,0,.08); border-radius:2px; background:var(--confetti-color); transform:translate3d(0,0,0) rotate(0); animation:confettiFall 3.2s cubic-bezier(.2,.7,.2,1) var(--confetti-delay) forwards; pointer-events:none; will-change:transform,opacity; }
+  @keyframes confettiFall { to { transform:translate(var(--confetti-x),110vh) rotate(var(--confetti-r)); opacity:0; } }
+  @media (max-width:600px){
+    #acceptedCelebration { padding:12px; }
+    .accepted-card { width:100%; max-height:calc(100dvh - 24px); padding:42px 18px 30px; border-width:5px; border-radius:26px; box-shadow:10px 10px 0 var(--navy); }
+    .accepted-card::before { inset:12px; border-radius:18px; }
+    .accepted-title { font-size:clamp(43px,14vw,62px); }
+    .accepted-subtitle { font-size:18px; }
+    .accepted-note { font-size:14px; }
+    .emoji-row { gap:9px; }
+    .celebrate-emoji { width:48px; height:48px; font-size:23px; border-width:3px; box-shadow:4px 4px 0 var(--navy); }
+    .floating-one { top:14px; left:10px; }
+    .floating-two { top:14px; right:10px; }
+  }
+
   /* ==================================================================== */
   /* ABOUT US WORLD CONTENT                                               */
   /* ==================================================================== */
@@ -1548,6 +1623,8 @@
       <button class="hero-cta" data-target="dashboard">Start your application →</button>
     </div>
 
+
+
   </div>
 </main>
 
@@ -1582,8 +1659,27 @@
       <p class="tagline">Application Dashboard</p>
     </div>
 
-    <p class="intro-text">Tell us who you are and where you'd like to contribute. Applications are reviewed on a rolling basis.</p>
+    <p class="intro-text">Enter your JK-Code first to check your application status, or continue below to submit a new application.</p>
 
+    <!-- JK-CODE FIRST: status checker appears before the application form -->
+    <p class="status-divider" style="margin-top:0;">Already applied?</p>
+
+    <div class="glass card" id="statusChecker">
+      <p class="card-label">JK-Code</p>
+      <label style="margin-top:0;">Enter your application code</label>
+      <div class="status-input-row">
+        <input type="text" id="statusCode" placeholder="e.g. JK-4F82C1" autocomplete="off" autocapitalize="characters">
+        <button type="button" class="status-check-btn" id="statusCheckBtn">Check Application Status</button>
+      </div>
+      <span class="error-text" id="statusError"></span>
+
+      <div class="status-result" id="statusResult" style="display:none;">
+        <p class="status-badge" id="statusBadge"></p>
+        <p class="status-message" id="statusMessage"></p>
+      </div>
+    </div>
+
+    <div class="dashboard-normal-content">
     <form id="appForm">
             <div class="glass card">
         <p class="card-label">Applicant</p>
@@ -1669,23 +1765,27 @@
       <p class="receipt-code" id="receiptCode"></p>
       <p>Keep this reference code. The editorial team will reach out by email once your desk assignment is reviewed.</p>
     </div>
-
-    <p class="status-divider">Already applied?</p>
-
-    <div class="glass card" id="statusChecker">
-      <p class="card-label">Check application status</p>
-      <label style="margin-top:0;">Enter your application code</label>
-      <div class="status-input-row">
-        <input type="text" id="statusCode" placeholder="e.g. JK-4F82C1" autocomplete="off" autocapitalize="characters">
-        <button type="button" class="status-check-btn" id="statusCheckBtn">Check Application Status</button>
-      </div>
-      <span class="error-text" id="statusError"></span>
-
-      <div class="status-result" id="statusResult" style="display:none;">
-        <p class="status-badge" id="statusBadge"></p>
-        <p class="status-message" id="statusMessage"></p>
-      </div>
     </div>
+
+    <section id="acceptedCelebration" aria-live="polite">
+      <button class="celebrate-emoji floating-emoji floating-one" type="button" data-message="So proud of you!" aria-label="Encouragement: So proud of you">🎉</button>
+      <button class="celebrate-emoji floating-emoji floating-two" type="button" data-message="You did it! Welcome to the team!" aria-label="Encouragement: You did it">🥳</button>
+      <div class="accepted-card">
+        <p class="accepted-kicker">YOU MADE IT!</p>
+        <h2 class="accepted-title">Welcome to JourKnows!</h2>
+        <p class="accepted-subtitle" id="acceptedSubtitle"></p>
+        <div class="accepted-details" id="acceptedDetails"></div>
+        <p class="accepted-note">Welcome to a community where journalism is for all. Your voice, curiosity, and stories have a place here.</p>
+        <div class="emoji-row" aria-label="Celebration messages">
+          <button class="celebrate-emoji" type="button" data-message="Your voice matters!" aria-label="Encouragement: Your voice matters">✍️</button>
+          <button class="celebrate-emoji" type="button" data-message="Keep writing and making an impact!" aria-label="Encouragement: Keep writing and making an impact">💙</button>
+          <button class="celebrate-emoji" type="button" data-message="You belong here!" aria-label="Encouragement: You belong here">⭐</button>
+          <button class="celebrate-emoji" type="button" data-message="Your journalism journey starts here!" aria-label="Encouragement: Your journalism journey starts here">📰</button>
+        </div>
+      </div>
+      <div class="encouragement-bubble" id="encouragementBubble" aria-live="polite"></div>
+    </section>
+
   </div>
 </main>
 
@@ -1887,7 +1987,10 @@ function resetStatusResult() {
   statusResult.className = 'status-result';
   statusBadge.textContent = '';
   statusMessage.textContent = '';
+  dashboardWorld.classList.remove('accepted-state');
+  document.body.classList.remove('accepted-screen-active');
 }
+
 
 async function checkApplicationStatus() {
   statusError.textContent = '';
@@ -1920,12 +2023,15 @@ async function checkApplicationStatus() {
       return;
     }
 
-    statusResult.classList.add(info.className);
-    statusBadge.textContent = info.label;
-    statusMessage.textContent = (result.status === 'trainee' || result.status === 'volunteer')
-      ? buildAcceptanceMessage(result)
-      : info.message;
-    statusResult.style.display = 'block';
+    const isAccepted = result.status === 'trainee' || result.status === 'volunteer';
+    if (isAccepted) {
+      showAcceptedExperience(result);
+    } else {
+      statusResult.classList.add(info.className);
+      statusBadge.textContent = info.label;
+      statusMessage.textContent = info.message;
+      statusResult.style.display = 'block';
+    }
   } catch (err) {
     console.error('Status check error:', err);
     statusError.textContent = err.message && err.message !== 'Failed to fetch'
@@ -1936,6 +2042,67 @@ async function checkApplicationStatus() {
     statusCheckBtn.textContent = 'Check Application Status';
   }
 }
+
+function showAcceptedExperience(result) {
+  const name = result.fullName || 'Future JourKnows journalist';
+  const role = result.status === 'volunteer' ? 'Accepted as Volunteer' : 'Accepted as Trainee';
+  const desk = result.desk || 'JourKnows';
+  const celebration = document.getElementById('acceptedCelebration');
+  const subtitle = document.getElementById('acceptedSubtitle');
+  const details = document.getElementById('acceptedDetails');
+
+  dashboardWorld.classList.add('accepted-state');
+  document.body.classList.add('accepted-screen-active');
+  subtitle.textContent = `Congratulations, ${name}!`;
+  details.innerHTML = `
+    <div class="accepted-detail">${role}<small>Application status</small></div>
+    <div class="accepted-detail">${desk}<small>Desk</small></div>
+  `;
+  launchConfetti();
+  celebration.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function launchConfetti() {
+  const celebration = document.getElementById('acceptedCelebration');
+  if (!celebration) return;
+
+  celebration.querySelectorAll('.confetti-piece').forEach(el => el.remove());
+
+  // Respect reduced-motion settings while still showing a small visual burst.
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const count = reduced ? 24 : 140;
+  const colors = ['#000E4B','#00198D','#FFC93C','#FF6B5B','#2FD9A0','#4FC3F7','#FFFFFF'];
+
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('span');
+    piece.className = 'confetti-piece';
+    const side = i % 2 === 0 ? -1 : 1;
+    const startX = 8 + Math.random() * 84;
+    const drift = side * (80 + Math.random() * 420);
+    const rotation = Math.random() * 1080 - 540;
+
+    piece.style.left = `${startX}%`;
+    piece.style.setProperty('--confetti-color', colors[i % colors.length]);
+    piece.style.setProperty('--confetti-delay', `${Math.random() * 0.65}s`);
+    piece.style.setProperty('--confetti-x', `${drift}px`);
+    piece.style.setProperty('--confetti-r', `${rotation}deg`);
+    piece.style.width = `${6 + Math.random() * 7}px`;
+    piece.style.height = `${10 + Math.random() * 12}px`;
+    celebration.appendChild(piece);
+
+    window.setTimeout(() => piece.remove(), 4300);
+  }
+}
+
+document.querySelectorAll('.celebrate-emoji').forEach(button => {
+  button.addEventListener('click', () => {
+    const bubble = document.getElementById('encouragementBubble');
+    bubble.textContent = button.dataset.message || 'You belong here!';
+    bubble.classList.add('show');
+    clearTimeout(window._jkBubbleTimer);
+    window._jkBubbleTimer = setTimeout(() => bubble.classList.remove('show'), 2200);
+  });
+});
 
 statusCheckBtn.addEventListener('click', checkApplicationStatus);
 statusCodeInput.addEventListener('keydown', (e) => {
